@@ -33,6 +33,6 @@ public class Topic {
     @ManyToMany(
             mappedBy = "topics",
             fetch = FetchType.EAGER)
-    Set<Post> posts;
+Set<Post> posts;
 
 }

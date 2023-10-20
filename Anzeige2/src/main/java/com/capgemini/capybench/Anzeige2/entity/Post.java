@@ -26,7 +26,7 @@ public class Post {
     private String content;
 
     @ManyToMany(
-            mappedBy = "topics",
+            mappedBy = "posts",
             fetch = FetchType.EAGER)
     Set<Person> people;
 
@@ -41,6 +41,7 @@ public class Post {
     )
     private Set<Topic> topics;
 
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "post_to_subtopic",
             joinColumns = @JoinColumn(name = "post_id"),
