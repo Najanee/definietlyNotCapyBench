@@ -1,5 +1,6 @@
 package com.capgemini.capybench.Anzeige2.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
