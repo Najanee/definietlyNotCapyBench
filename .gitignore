@@ -31,3 +31,21 @@ build/
 
 ### VS Code ###
 .vscode/
+node_modules
+
+env/.env.*.user
+env/.env.local
+.DS_Store
+build
+appPackage/build
+.deployment
+.localConfigs
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# Dev tool directories
+/devTools/
