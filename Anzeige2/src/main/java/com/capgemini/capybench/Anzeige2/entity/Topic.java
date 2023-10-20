@@ -15,6 +15,7 @@ import java.util.Set;
 @Builder
 public class Topic {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column
@@ -23,7 +24,7 @@ public class Topic {
     @ManyToMany(
             mappedBy = "topics",
             fetch = FetchType.EAGER)
-    Set<User> users;
+    Set<Person> people;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "subtopic_id")

@@ -14,15 +14,16 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-public class User {
+public class Person {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_to_topic",
-            joinColumns = @JoinColumn(name = "user_id"),
+            name = "person_to_topic",
+            joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "topic_id")
     )
     private Set<Topic> topics;
