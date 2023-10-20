@@ -11,14 +11,17 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/topics")
 public class TopicController {
     @GetMapping
+    @CrossOrigin("*")
     public ResponseEntity<List<Topic>> getAllTopics(){
 
         return ResponseEntity.ok(new ArrayList<>());
     }
     @GetMapping("/{id}")
+    @CrossOrigin("*")
     public ResponseEntity<Topic> getTopic(@PathVariable("id") Long topicId){
 
         Topic topic = new Topic(topicId,
@@ -29,6 +32,7 @@ public class TopicController {
         return ResponseEntity.ok(topic);
     }
     @PutMapping
+    @CrossOrigin("*")
     public ResponseEntity<Long> addSubtopic(@RequestParam("topicId") Long topicId,
                                             @RequestParam("subtopicName") String subtopicName){
 
