@@ -1,9 +1,9 @@
 package com.capgemini.capybench.Anzeige2.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -15,4 +15,11 @@ public class User {
     private long id;
     @Column
     private String name;
+    @ManyToMany
+    @JoinTable(
+            name = "user_to_topic",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id")
+    )
+    private Set<Topic> topics;
 }
