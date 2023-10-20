@@ -26,10 +26,10 @@ public class Post {
     private String content;
 
     @ManyToOne
-    Person person;
+    private Person person;
 
     @Column
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

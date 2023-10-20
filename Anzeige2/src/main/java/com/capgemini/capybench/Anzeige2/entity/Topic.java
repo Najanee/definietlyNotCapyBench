@@ -24,7 +24,7 @@ public class Topic {
     @ManyToMany(
             mappedBy = "subscribedTopics",
             fetch = FetchType.EAGER)
-    Set<Person> people;
+    private Set<Person> people;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "subtopic_id")
@@ -33,6 +33,6 @@ public class Topic {
     @ManyToMany(
             mappedBy = "topics",
             fetch = FetchType.EAGER)
-    Set<Post> posts;
+    private Set<Post> posts;
 
 }

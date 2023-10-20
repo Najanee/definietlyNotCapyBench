@@ -23,6 +23,6 @@ public class Subtopic {
     @ManyToMany(
             mappedBy = "subtopics",
             fetch = FetchType.EAGER)
-    Set<Post> posts;
+    private Set<Post> posts;
 
 }
