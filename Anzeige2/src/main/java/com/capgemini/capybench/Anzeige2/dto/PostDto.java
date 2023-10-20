@@ -9,18 +9,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class PostRequestDto {
+public class PostDto {
     private String title;
     private String content;
-    private long personId;
-    private long topicId;
-    private long subtopicId;
+    private Long personId;
+    private Long topicId;
+    private Long subtopicId;
     @JsonCreator
-    public PostRequestDto(@JsonProperty("title") String title,
-                          @JsonProperty("content") String content,
-                          @JsonProperty("personId") long personId,
-                          @JsonProperty("topicId") long topicId,
-                          @JsonProperty("subtopic") long subtopicId) {
+    public PostDto(@JsonProperty("title") String title,
+                   @JsonProperty("content") String content,
+                   @JsonProperty("personId") Long personId,
+                   @JsonProperty("topicId") Long topicId,
+                   @JsonProperty("subtopic") Long subtopicId) {
         this.title = title;
         this.content = content;
         this.personId = personId;

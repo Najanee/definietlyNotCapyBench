@@ -1,6 +1,6 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
-import com.capgemini.capybench.Anzeige2.dto.PostRequestDto;
+import com.capgemini.capybench.Anzeige2.dto.PostDto;
 import com.capgemini.capybench.Anzeige2.entity.Post;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 public class PostController {
     @PostMapping
     @CrossOrigin("*")
-    public ResponseEntity<String> addPost(@RequestBody PostRequestDto postDto){
+    public ResponseEntity<String> addPost(@RequestBody PostDto postDto){
 
         return ResponseEntity.ok("Post successfully added");
     }
