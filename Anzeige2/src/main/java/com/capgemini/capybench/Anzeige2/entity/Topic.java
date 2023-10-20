@@ -20,10 +20,12 @@ public class Topic {
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "topics")
+    @ManyToMany(
+            mappedBy = "topics",
+            fetch = FetchType.EAGER)
     Set<User> users;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "subtopic_id")
     private Set<Subtopic> subtopics;
 

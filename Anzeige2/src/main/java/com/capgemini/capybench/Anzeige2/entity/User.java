@@ -19,7 +19,7 @@ public class User {
     private long id;
     @Column
     private String name;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_to_topic",
             joinColumns = @JoinColumn(name = "user_id"),
