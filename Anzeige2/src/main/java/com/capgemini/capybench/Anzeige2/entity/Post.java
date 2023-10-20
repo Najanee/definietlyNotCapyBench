@@ -25,10 +25,8 @@ public class Post {
     @Column
     private String content;
 
-    @ManyToMany(
-            mappedBy = "posts",
-            fetch = FetchType.EAGER)
-    Set<Person> people;
+    @ManyToOne
+    Person person;
 
     @Column
     LocalDateTime createdDate;

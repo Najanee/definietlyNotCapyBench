@@ -30,11 +30,9 @@ public class Person {
     )
     private Set<Topic> subscribedTopics;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "person_to_topic",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_id")
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "person"
     )
     private Set<Post> posts;
 }
