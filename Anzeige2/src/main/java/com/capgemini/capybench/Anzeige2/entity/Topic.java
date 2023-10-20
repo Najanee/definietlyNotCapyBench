@@ -34,5 +34,4 @@ public class Topic {
             mappedBy = "topics",
             fetch = FetchType.EAGER)
     private Set<Post> posts;
-
 }
