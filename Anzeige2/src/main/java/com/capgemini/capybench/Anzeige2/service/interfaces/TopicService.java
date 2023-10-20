@@ -5,7 +5,7 @@ import com.capgemini.capybench.Anzeige2.entity.Topic;
 public interface TopicService {
 
     Topic addTopic(Topic topic);
-    void deleteTopic(long id);
-    Topic getTopic(long id);
+    void deleteTopic(Long id);
+    Topic getTopic(Long id);
     Topic updateTopic(Topic topic);
 }

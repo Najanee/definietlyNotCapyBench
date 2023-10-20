@@ -13,12 +13,12 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void deleteTopic(long id) {
+    public void deleteTopic(Long id) {
 
     }
 
     @Override
-    public Topic getTopic(long id) {
+    public Topic getTopic(Long id) {
         return null;
     }
 

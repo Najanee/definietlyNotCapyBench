@@ -8,7 +8,6 @@ import java.util.Set;
 @Data
 @Builder
 public class TopicDto {
-    private long id;
     private String name;
     private Set<Long> peopleIds;
     private Set<Long> subtopicsIds;

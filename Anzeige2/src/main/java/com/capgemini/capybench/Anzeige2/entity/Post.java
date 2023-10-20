@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Data
@@ -17,7 +16,7 @@ import java.util.Set;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column
     private String title;
@@ -31,21 +30,11 @@ public class Post {
     @Column
     private LocalDateTime createdDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "post_to_topic",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "topic_id")
-    )
-    private Set<Topic> topics;
+    @ManyToOne
+    private Topic topic;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "post_to_subtopic",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "subtopic_id")
-    )
-    private Set<Subtopic> subtopics;
+    @ManyToOne
+    private Subtopic subtopic;
 
     @PrePersist
     private void prePersist() {

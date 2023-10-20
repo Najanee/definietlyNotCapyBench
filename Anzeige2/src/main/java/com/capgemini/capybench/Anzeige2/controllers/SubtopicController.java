@@ -20,7 +20,7 @@ public class SubtopicController {
         return ResponseEntity.ok(new ArrayList<>());
     }
     @GetMapping(params = "topicId")
-    public ResponseEntity<List<Subtopic>> getAllSubtopicsByTopic(@RequestParam("topicId") long topicId){
+    public ResponseEntity<List<Subtopic>> getAllSubtopicsByTopic(@RequestParam("topicId") Long topicId){
 
         return ResponseEntity.ok(new ArrayList<>());
     }

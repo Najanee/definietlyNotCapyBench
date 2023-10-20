@@ -1,7 +1,6 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
 import com.capgemini.capybench.Anzeige2.entity.Person;
-import com.capgemini.capybench.Anzeige2.entity.Post;
 import com.capgemini.capybench.Anzeige2.entity.Subtopic;
 import com.capgemini.capybench.Anzeige2.entity.Topic;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class TopicController {
         return ResponseEntity.ok(new ArrayList<>());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Topic> getTopic(@PathVariable("id") long topicId){
+    public ResponseEntity<Topic> getTopic(@PathVariable("id") Long topicId){
 
         Topic topic = new Topic(topicId,
                                 "Hello Pupa",
@@ -30,7 +29,7 @@ public class TopicController {
         return ResponseEntity.ok(topic);
     }
     @PutMapping
-    public ResponseEntity<Long> addSubtopic(@RequestParam("topicId") long topicId,
+    public ResponseEntity<Long> addSubtopic(@RequestParam("topicId") Long topicId,
                                             @RequestParam("subtopicName") String subtopicName){
 
         return ResponseEntity.ok(1L);

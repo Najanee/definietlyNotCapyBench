@@ -16,12 +16,12 @@ import java.util.Set;
 public class Subtopic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @Column
     private String name;
 
-    @ManyToMany(
-            mappedBy = "subtopics",
+    @OneToMany(
+            mappedBy = "subtopic",
             fetch = FetchType.EAGER)
     private Set<Post> posts;
 

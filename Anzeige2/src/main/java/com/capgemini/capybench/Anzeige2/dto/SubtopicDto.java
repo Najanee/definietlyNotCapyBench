@@ -8,7 +8,7 @@ import java.util.Set;
 @Data
 @Builder
 public class SubtopicDto {
-    private long id;
+    private Long id;
     private String name;
     private Set<Long> postsIds;
 }
