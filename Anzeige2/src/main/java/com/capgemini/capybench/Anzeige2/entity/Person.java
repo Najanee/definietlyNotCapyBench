@@ -18,13 +18,23 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @Column
     private String name;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "person_to_topic",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "topic_id")
     )
-    private Set<Topic> topics;
+    private Set<Topic> subscribedTopics;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "person_to_topic",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private Set<Post> posts;
 }

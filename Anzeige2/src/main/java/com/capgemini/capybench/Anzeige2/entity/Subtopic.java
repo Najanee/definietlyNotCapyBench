@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,5 +19,10 @@ public class Subtopic {
     private long id;
     @Column
     private String name;
+
+    @ManyToMany(
+            mappedBy = "subtopics",
+            fetch = FetchType.EAGER)
+    Set<Post> posts;
 
 }

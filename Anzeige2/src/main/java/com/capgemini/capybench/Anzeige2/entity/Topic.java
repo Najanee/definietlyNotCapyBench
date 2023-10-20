@@ -22,12 +22,17 @@ public class Topic {
     private String name;
 
     @ManyToMany(
-            mappedBy = "topics",
+            mappedBy = "subscribedTopics",
             fetch = FetchType.EAGER)
     Set<Person> people;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "subtopic_id")
     private Set<Subtopic> subtopics;
+
+    @ManyToMany(
+            mappedBy = "topics",
+            fetch = FetchType.EAGER)
+    Set<Post> posts;
 
 }
