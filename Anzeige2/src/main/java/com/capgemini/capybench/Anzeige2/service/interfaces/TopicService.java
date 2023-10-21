@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface TopicService {
 
-    TopicDto addTopic(TopicDto topic);
+    Long addTopic(TopicDto topic);
     void deleteTopic(Long id);
-    TopicDto updateTopic(TopicDto topic);
+    Long updateTopic(TopicDto topic, Long id);
     List<TopicDto> getAllTopics();
 }

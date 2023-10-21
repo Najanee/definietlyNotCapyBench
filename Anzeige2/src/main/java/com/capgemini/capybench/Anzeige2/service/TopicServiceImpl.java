@@ -1,19 +1,26 @@
 package com.capgemini.capybench.Anzeige2.service;
 
 import com.capgemini.capybench.Anzeige2.dto.TopicDto;
+import com.capgemini.capybench.Anzeige2.entity.Topic;
 import com.capgemini.capybench.Anzeige2.mapper.TopicMapper;
 import com.capgemini.capybench.Anzeige2.repository.TopicRepository;
 import com.capgemini.capybench.Anzeige2.service.interfaces.TopicService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.TOPIC_DTO_MUST_NOT_BE_NULL;
+import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.TOPIC_ENTITY_WITH_ID_S_NOT_FOUND;
+
+@Transactional
 public class TopicServiceImpl implements TopicService {
 
     @Autowired
-    private TopicRepository topicRepository;
+    private final TopicRepository topicRepository;
     @Autowired
-    TopicMapper topicMapper;
+    private final TopicMapper topicMapper;
 
     public TopicServiceImpl(TopicRepository topicRepository, TopicMapper topicMapper) {
         this.topicRepository = topicRepository;
@@ -21,22 +28,46 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public TopicDto addTopic(TopicDto topic) {
-        return null;
+    public Long addTopic(TopicDto topic) {
+        if (topic == null) {
+            throw new IllegalArgumentException(TOPIC_DTO_MUST_NOT_BE_NULL);
+        }
+        Topic topicEntity = topicMapper.toEntity(topic);
+        return topicRepository.save(topicEntity).getId();
     }
 
     @Override
     public void deleteTopic(Long id) {
-
+        Topic topic = topicRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(id)));
+        topicRepository.delete(topic);
     }
 
     @Override
-    public TopicDto updateTopic(TopicDto topic) {
-        return null;
+    public Long updateTopic(TopicDto topicDto, Long id) {
+        Topic topicEntity = topicRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(id)));
+        Topic updatedEntity = topicMapper.toEntity(topicDto);
+        if (topicDto.getName()!= null) {
+            topicEntity.setName(topicDto.getName());
+        }
+        if (topicDto.getPeopleIds()!= null && !topicDto.getPeopleIds().isEmpty()) {
+            topicEntity.setPeople(updatedEntity.getPeople());
+        }
+        if (topicDto.getPostsIds()!= null &&!topicDto.getPostsIds().isEmpty()) {
+            topicEntity.setPosts(updatedEntity.getPosts());
+        }
+        if (topicDto.getSubtopicsIds()!= null &&!topicDto.getSubtopicsIds().isEmpty()) {
+            topicEntity.setSubtopics(updatedEntity.getSubtopics());
+        }
+        return topicRepository.save(topicEntity).getId();
     }
 
     @Override
     public List<TopicDto> getAllTopics() {
-        return null;
+        return topicRepository.findAll().stream()
+                .map(topicMapper::toDto)
+                .toList();
     }
 }
+
