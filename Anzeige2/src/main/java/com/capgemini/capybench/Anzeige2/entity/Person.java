@@ -2,17 +2,16 @@ package com.capgemini.capybench.Anzeige2.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Person {
     @Id
@@ -30,7 +29,8 @@ public class Person {
             fetch = FetchType.LAZY)
     private Set<Post> authoredPosts;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL)
     @JoinTable(
             name = "person_to_topic",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -53,4 +53,36 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     private Set<Post> subscribedPosts;
+
+    public void addTopic(Topic topic){
+        subscribedTopics.add(topic);
+        Set<Person> people = topic.getPeople();
+        people.add(this);
+    }
+    public void addSubtopic(Subtopic subtopic){
+        subscribedSubtopics.add(subtopic);
+        subtopic.getPeople().add(this);
+    }
+    public void addPost(Post post){
+        subscribedPosts.add(post);
+        post.getPeople().add(this);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) && Objects.equals(name, person.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.capgemini.capybench.Anzeige2.service;
 
+import com.capgemini.capybench.Anzeige2.dto.NewPostDto;
 import com.capgemini.capybench.Anzeige2.dto.PostDto;
 import com.capgemini.capybench.Anzeige2.entity.Person;
 import com.capgemini.capybench.Anzeige2.entity.Post;
@@ -16,6 +17,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,17 +44,20 @@ public class PostServiceImpl implements PostService {
         this.subtopicRepository = subtopicRepository;
         this.personRepository = personRepository;
     }
-
-    public Long addPost(PostDto postDto, Long topicId, Long subtopicId) {
-        Subtopic subtopic = findSubtopicById(subtopicId);
-        if (subtopicId != null) {
-            subtopic = findSubtopicById(subtopicId);
-        }
-        Topic topic = findTopicById(topicId);
-        Post post = addTopicAndSubtopicToPost(postDto, topic, subtopic);
-        addPostToSubtopic(subtopic, post);
-        addPostToTopic(topic, post);
-        return post.getId();
+    @Override
+    public PostDto addPost(NewPostDto newPostDto) {
+        Subtopic subtopic = findSubtopicById(newPostDto.getSubtopicId());
+        Topic topic = findTopicById(newPostDto.getTopicId());
+        Person author = findPersonById(newPostDto.getAuthorId());
+        Post newPost = new Post();
+        newPost.setContent(newPostDto.getContent());
+        newPost.setTitle(newPostDto.getTitle());
+        newPost.setAuthor(author);
+        newPost.setSubtopic(subtopic);
+        newPost.setTopic(topic);
+        newPost.setPeople(new HashSet<>());
+        Post persistedPost = postRepository.save(newPost);
+        return postMapper.toDto(persistedPost);
     }
 
     @Override

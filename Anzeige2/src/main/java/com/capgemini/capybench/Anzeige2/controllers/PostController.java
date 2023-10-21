@@ -23,7 +23,7 @@ public class PostController {
     @PostMapping
     @CrossOrigin("*")
     public ResponseEntity<String> addPost(@RequestBody NewPostDto postDto){
-
+        postService.addPost(postDto);
         return ResponseEntity.ok("Post successfully added");
     }
     @GetMapping

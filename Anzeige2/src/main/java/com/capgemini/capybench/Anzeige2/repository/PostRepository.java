@@ -18,4 +18,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             @Param("topics") List<Long> topics,
             @Param("subtopics") List<Long> subtopics,
             @Param("posts") List<Long> posts);
+    Post getPostById(Long postId);
     }
+

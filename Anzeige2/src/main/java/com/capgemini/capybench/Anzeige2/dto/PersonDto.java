@@ -9,5 +9,5 @@ import lombok.Value;
 public class PersonDto {
     long id;
     @NonNull String name;
-    @NonNull String imageUrl;
+    String imageUrl;
 }

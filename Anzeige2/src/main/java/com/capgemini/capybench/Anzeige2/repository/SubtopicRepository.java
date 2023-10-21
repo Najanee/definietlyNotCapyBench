@@ -17,4 +17,5 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Long> {
                     """
     )
     List<Subtopic> findAllSubtopicsByTopicId(@Param("topicId") Long topicId);
+    Subtopic getSubtopicById(Long subtopicId);
 }
