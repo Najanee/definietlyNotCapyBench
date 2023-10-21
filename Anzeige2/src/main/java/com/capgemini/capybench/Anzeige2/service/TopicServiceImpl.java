@@ -45,21 +45,14 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Long updateTopic(TopicDto topicDto, Long id) {
-        Topic topicEntity = topicRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(id)));
+    public Long updateTopic(TopicDto topicDto) {
+        //TODO: to jest spierdololo
+        Topic topicEntity = topicRepository.findById(topicDto.getId()).orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicDto.getId())));
         Topic updatedEntity = topicMapper.toEntity(topicDto);
         if (topicDto.getName()!= null) {
             topicEntity.setName(topicDto.getName());
         }
-        if (topicDto.getPeopleIds()!= null && !topicDto.getPeopleIds().isEmpty()) {
-            topicEntity.setPeople(updatedEntity.getPeople());
-        }
-        if (topicDto.getPostsIds()!= null &&!topicDto.getPostsIds().isEmpty()) {
-            topicEntity.setPosts(updatedEntity.getPosts());
-        }
-        if (topicDto.getSubtopicsIds()!= null &&!topicDto.getSubtopicsIds().isEmpty()) {
-            topicEntity.setSubtopics(updatedEntity.getSubtopics());
-        }
+
         return topicRepository.save(topicEntity).getId();
     }
 

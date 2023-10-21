@@ -1,10 +1,12 @@
 package com.capgemini.capybench.Anzeige2.service;
 
 import com.capgemini.capybench.Anzeige2.dto.PostDto;
+import com.capgemini.capybench.Anzeige2.entity.Person;
 import com.capgemini.capybench.Anzeige2.entity.Post;
 import com.capgemini.capybench.Anzeige2.entity.Subtopic;
 import com.capgemini.capybench.Anzeige2.entity.Topic;
 import com.capgemini.capybench.Anzeige2.mapper.PostMapper;
+import com.capgemini.capybench.Anzeige2.repository.PersonRepository;
 import com.capgemini.capybench.Anzeige2.repository.PostRepository;
 import com.capgemini.capybench.Anzeige2.repository.SubtopicRepository;
 import com.capgemini.capybench.Anzeige2.repository.TopicRepository;
@@ -16,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Set;
 
-import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.SUBTOPIC_ENTITY_WITH_ID_S_NOT_FOUND;
-import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.TOPIC_ENTITY_WITH_ID_S_NOT_FOUND;
+import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.*;
 
 @Transactional
 public class PostServiceImpl implements PostService {
@@ -30,44 +31,104 @@ public class PostServiceImpl implements PostService {
     private final TopicRepository topicRepository;
     @Autowired
     private final SubtopicRepository subtopicRepository;
+    @Autowired
+    private final PersonRepository personRepository;
 
-    public PostServiceImpl(PostRepository postRepository, PostMapper postMapper, TopicRepository topicRepository, SubtopicRepository subtopicRepository) {
+    public PostServiceImpl(PostRepository postRepository, PostMapper postMapper, TopicRepository topicRepository, SubtopicRepository subtopicRepository, PersonRepository personRepository) {
         this.postRepository = postRepository;
         this.postMapper = postMapper;
         this.topicRepository = topicRepository;
         this.subtopicRepository = subtopicRepository;
+        this.personRepository = personRepository;
     }
 
     public Long addPost(PostDto postDto, Long topicId, Long subtopicId) {
-        Subtopic subtopic = subtopicRepository
-                .findById(subtopicId)
-                .orElseThrow(() -> new EntityNotFoundException(SUBTOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subtopicId)));
-        Topic topic = topicRepository
-                .findById(topicId)
-                .orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicId)));
-
+        Subtopic subtopic = findSubtopicById(subtopicId);
+        Topic topic = findTopicById(topicId);
         Post post = addTopicAndSubtopicToPost(postDto, topic, subtopic);
         addPostToSubtopic(subtopic, post);
         addPostToTopic(topic, post);
-
         return post.getId();
     }
 
-    //BYLES KURWA W WOJSKU?
     @Override
     public Long addPost(PostDto postDto, Long topicId) {
-        return null;
+        Topic topic = findTopicById(topicId);
+        Post post = addTopicToPost(postDto, topic);
+        addPostToTopic(topic, post);
+        return post.getId();
     }
 
     @Override
     public List<PostDto> getAllFollowedPostsByPersonId(Long personId) {
-        return null;
+        Person person = findPersonById(personId);
+
+        List<Long> topicIds = person.getSubscribedTopics()
+                .stream()
+                .map(Topic::getId)
+                .toList();
+
+        List<Long> subtopicIds = person.getSubscribedSubtopics()
+                .stream()
+                .map(Subtopic::getId)
+                .toList();
+
+        List<Long> postIds = person.getSubscribedPosts()
+                .stream()
+                .map(Post::getId)
+                .toList();
+
+        return postRepository.findAllBy(topicIds, subtopicIds, postIds)
+                .stream()
+                .map(postMapper::toDto)
+                .toList();
+
+//        Set<Post> followedPosts = person.getSubscribedPosts();
+//        Set<Post> postsFromFollowedSubtopics = person.getSubscribedSubtopics().stream()
+//                .flatMap(subtopic -> subtopic.getPosts().stream())
+//                .collect(Collectors.toSet());
+//        Set<Post> postsFromFollowedTopics = person.getSubscribedTopics().stream()
+//                .flatMap(subtopic -> subtopic.getPosts().stream())
+//                .collect(Collectors.toSet());
+//        List<Post> allPosts = new ArrayList<>();
+//        allPosts.addAll(followedPosts);
+//        allPosts.addAll(postsFromFollowedSubtopics);
+//        allPosts.addAll(postsFromFollowedTopics);
+//        return allPosts.stream()
+//                .distinct()
+//                .map(postMapper::toDto)
+//                .toList();
+    }
+
+    private Person findPersonById(Long personId) {
+        return personRepository
+                .findById(personId)
+                .orElseThrow(() -> new EntityNotFoundException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(personId)));
+    }
+
+    private Topic findTopicById(Long topicId) {
+        return topicRepository
+                .findById(topicId)
+                .orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicId)));
+    }
+
+    private Subtopic findSubtopicById(Long subtopicId) {
+        return subtopicRepository
+                .findById(subtopicId)
+                .orElseThrow(() -> new EntityNotFoundException(SUBTOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subtopicId)));
     }
 
     private Post addTopicAndSubtopicToPost(PostDto postDto, Topic topic, Subtopic subtopic) {
         Post post = postMapper.toEntity(postDto);
         post.setTopic(topic);
         post.setSubtopic(subtopic);
+        postRepository.save(post);
+        return post;
+    }
+
+    private Post addTopicToPost(PostDto postDto, Topic topic) {
+        Post post = postMapper.toEntity(postDto);
+        post.setTopic(topic);
         postRepository.save(post);
         return post;
     }

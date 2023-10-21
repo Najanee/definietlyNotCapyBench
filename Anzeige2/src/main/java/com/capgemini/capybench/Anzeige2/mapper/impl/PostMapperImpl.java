@@ -1,7 +1,8 @@
-package com.capgemini.capybench.Anzeige2.mapper;
+package com.capgemini.capybench.Anzeige2.mapper.impl;
 
 import com.capgemini.capybench.Anzeige2.dto.PostDto;
 import com.capgemini.capybench.Anzeige2.entity.Post;
+import com.capgemini.capybench.Anzeige2.mapper.PostMapper;
 import com.capgemini.capybench.Anzeige2.repository.PersonRepository;
 import com.capgemini.capybench.Anzeige2.repository.SubtopicRepository;
 import com.capgemini.capybench.Anzeige2.repository.TopicRepository;
@@ -33,7 +34,7 @@ public class PostMapperImpl implements PostMapper {
         return PostDto.builder()
                 .title(entity.getTitle())
                 .content(entity.getContent())
-                .personId(entity.getAuthor().getId())
+//                .personId(entity.getAuthor().getId())
                 .topicId(entity.getTopic().getId())
                 .subtopicId(entity.getSubtopic().getId())
                 .build();
@@ -46,8 +47,8 @@ public class PostMapperImpl implements PostMapper {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .author(personRepository
-                        .findById(dto.getPersonId())
-                        .orElseThrow(() -> new EntityNotFoundException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(dto.getPersonId()))))
+                        .findById(dto.getAuthor().getId())
+                        .orElseThrow(() -> new EntityNotFoundException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(dto.getAuthor().getId()))))
                 .topic(topicRepository
                         .findById(dto.getTopicId())
                         .orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(dto.getTopicId()))))

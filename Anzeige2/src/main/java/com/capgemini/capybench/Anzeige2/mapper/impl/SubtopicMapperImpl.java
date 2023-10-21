@@ -1,8 +1,9 @@
-package com.capgemini.capybench.Anzeige2.mapper;
+package com.capgemini.capybench.Anzeige2.mapper.impl;
 
 import com.capgemini.capybench.Anzeige2.dto.SubtopicDto;
 import com.capgemini.capybench.Anzeige2.entity.Post;
 import com.capgemini.capybench.Anzeige2.entity.Subtopic;
+import com.capgemini.capybench.Anzeige2.mapper.SubtopicMapper;
 import com.capgemini.capybench.Anzeige2.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class SubtopicMapperImpl implements SubtopicMapper {
         }
         return SubtopicDto.builder()
                 .name(entity.getName())
-//                .postsIds(entity.getPosts().stream()
-//                        .map(Post::getId)
-//                        .collect(Collectors.toSet()))
+                .postsIds(entity.getPosts().stream()
+                        .map(Post::getId)
+                        .collect(Collectors.toSet()))
                 .build();
     }
 
@@ -41,11 +42,11 @@ public class SubtopicMapperImpl implements SubtopicMapper {
         }
         return Subtopic.builder()
                 .name(dto.getName())
-//                .posts(dto.getPostsIds().stream()
-//                        .map(id -> postRepository
-//                                .findById(id)
-//                                .orElseThrow(() -> new EntityNotFoundException(POST_ENTITY_WITH_ID_S_NOR_FOUND.formatted(id))))
-//                        .collect(Collectors.toSet()))
+                .posts(dto.getPostsIds().stream()
+                        .map(id -> postRepository
+                                .findById(id)
+                                .orElseThrow(() -> new EntityNotFoundException(POST_ENTITY_WITH_ID_S_NOR_FOUND.formatted(id))))
+                        .collect(Collectors.toSet()))
                 .build();
     }
 }

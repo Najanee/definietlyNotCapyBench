@@ -8,6 +8,6 @@ public interface TopicService {
 
     Long addTopic(TopicDto topic);
     void deleteTopic(Long id);
-    Long updateTopic(TopicDto topic, Long id);
+    Long updateTopic(TopicDto topic);
     List<TopicDto> getAllTopics();
 }
