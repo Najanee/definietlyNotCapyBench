@@ -10,9 +10,9 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("""
-            SELECT p 
-            FROM Person p 
-            WHERE :id IN person_to_topic
+            SELECT p FROM Person p
+            JOIN p.subscribedTopics t
+            WHERE t.id = :id
             """)
     List<Person> findAllPeopleByTopicId(@Param("id") Long id);
 }

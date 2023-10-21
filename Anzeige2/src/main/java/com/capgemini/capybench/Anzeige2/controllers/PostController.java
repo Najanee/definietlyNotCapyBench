@@ -2,13 +2,11 @@ package com.capgemini.capybench.Anzeige2.controllers;
 
 import com.capgemini.capybench.Anzeige2.dto.NewPostDto;
 import com.capgemini.capybench.Anzeige2.dto.PostDto;
-import com.capgemini.capybench.Anzeige2.entity.Post;
 import com.capgemini.capybench.Anzeige2.service.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +14,7 @@ import java.util.List;
 @CrossOrigin("*")
 public class PostController {
 
+    @Autowired
     private PostService postService;
     @Autowired
     public PostController (PostService postService){
