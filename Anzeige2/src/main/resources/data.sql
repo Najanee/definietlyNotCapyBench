@@ -25,4 +25,4 @@ INSERT INTO subtopic(id, topic_id, name) VALUES(8, 4, 'Samochód');
 
 
 --
---INSERT INTO post(create_date, id, person_id, subtopic_id, topic_id, content, title) VALUES(DATE())
+INSERT INTO post(author_id, created_date, id, subtopic_id, topic_id, content, title) VALUES(1, CURRENT_TIMESTAMP, 1, 4, 2, 'Witam Bardzo mi milo zaprosic was na wycieczke', 'Fajna wycieczka');

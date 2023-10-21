@@ -34,6 +34,7 @@ public class SubtopicServiceImpl implements SubtopicService {
         this.topicRepository = topicRepository;
     }
 
+
     @Override
     public Long addSubtopic(SubtopicDto subtopicDto, Long topicId) {
         Topic topic = topicRepository
@@ -56,7 +57,8 @@ public class SubtopicServiceImpl implements SubtopicService {
         Topic topic = topicRepository
                 .findById(topicId)
                 .orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicId)));
-        return topic.getSubtopics().stream()
+
+        return subtopicRepository.findAllSubtopicsByTopicId(topicId).stream()
                 .map(subtopicMapper::toDto)
                 .toList();
     }

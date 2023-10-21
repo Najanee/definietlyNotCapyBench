@@ -1,6 +1,8 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
+import com.capgemini.capybench.Anzeige2.dto.SubtopicDto;
 import com.capgemini.capybench.Anzeige2.entity.Subtopic;
+import com.capgemini.capybench.Anzeige2.service.SubtopicServiceImpl;
 import com.capgemini.capybench.Anzeige2.service.interfaces.SubtopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +18,16 @@ public class SubtopicController {
     private SubtopicService subtopicService;
 
     @Autowired
-    public SubtopicController(SubtopicService subtopicService){
+    public SubtopicController(SubtopicServiceImpl subtopicService){
         this.subtopicService = subtopicService;
     }
 
-    @GetMapping
-    @CrossOrigin("*")
-    public ResponseEntity<List<Subtopic>> getAllSubtopics(){
-
-        return ResponseEntity.ok(new ArrayList<>());
-    }
     @GetMapping(params = "topicId")
     @CrossOrigin("*")
-    public ResponseEntity<List<Subtopic>> getAllSubtopicsByTopic(@RequestParam("topicId") Long topicId){
+    public ResponseEntity<List<SubtopicDto>> getAllSubtopicsByTopic(@RequestParam("topicId") Long topicId){
+        List<SubtopicDto> responseBody = subtopicService.getAllSubtopicsByTopicId(topicId);
 
-        return ResponseEntity.ok(new ArrayList<>());
+        return ResponseEntity.ok(responseBody);
     }
 
 }

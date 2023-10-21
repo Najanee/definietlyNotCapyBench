@@ -24,10 +24,10 @@ public class Person {
 
     @OneToMany(
             mappedBy = "author",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<Post> authoredPosts;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "person_to_topic",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -35,7 +35,7 @@ public class Person {
     )
     private Set<Topic> subscribedTopics;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "person_to_subtopic",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -43,7 +43,7 @@ public class Person {
     )
     private Set<Subtopic> subscribedSubtopics;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "person_to_post",
             joinColumns = @JoinColumn(name = "person_id"),

@@ -29,11 +29,11 @@ public class Topic {
 
     @OneToMany(
             mappedBy = "topic",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<Subtopic> subtopics;
 
     @OneToMany(
             mappedBy = "topic",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<Post> posts;
 }
