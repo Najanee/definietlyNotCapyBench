@@ -1,29 +1,39 @@
-INSERT INTO person(id, name) VALUES(1, 'Bartek');
-INSERT INTO person(id, name) VALUES(2, 'Grzegorz');
-INSERT INTO person(id, name) VALUES(3, 'Maja');
-INSERT INTO person(id, name) VALUES(4, 'Michal');
-INSERT INTO person(id, name) VALUES(5, 'Adrian');
-INSERT INTO person(id, name) VALUES(6, 'Karol Wojtyla');
+INSERT INTO topic(id, name) VALUES(1, 'Sprzedam');
+INSERT INTO topic(id, name) VALUES(2, 'Nauka niemieckiego');
+INSERT INTO topic(id, name) VALUES(3, 'Zainteresowania i projekty');
+INSERT INTO topic(id, name) VALUES(4, 'Po godzinach');
 
-INSERT INTO topic(id, name) VALUES(1, 'Language');
-INSERT INTO topic(id, name) VALUES(2, 'Travel');
-INSERT INTO topic(id, name) VALUES(3, 'Project');
-INSERT INTO topic(id, name) VALUES(4, 'Sell');
-INSERT INTO topic(id, name) VALUES(5, 'Buy');
-INSERT INTO topic(id, name) VALUES(6, 'JP2');
+INSERT INTO subtopic(id, topic_id, name) VALUES(1, 1, 'Motoryzacja');
+INSERT INTO subtopic(id, topic_id, name) VALUES(2, 1, 'Drobne');
 
-INSERT INTO subtopic(id, topic_id, name) VALUES(1, 1, 'English');
-INSERT INTO subtopic(id, topic_id, name) VALUES(2, 1, 'Deutsch');
-INSERT INTO subtopic(id, topic_id, name) VALUES(3, 1, 'English C1');
+INSERT INTO subtopic(id, topic_id, name) VALUES(3, 2, 'Konwersacje poziom podstawowy');
+INSERT INTO subtopic(id, topic_id, name) VALUES(4, 2, 'Oglądanie filmów po niemiecku');
 
-INSERT INTO subtopic(id, topic_id, name) VALUES(4, 2, 'Polish');
-INSERT INTO subtopic(id, topic_id, name) VALUES(5, 2, 'City Break');
+INSERT INTO subtopic(id, topic_id, name) VALUES(5, 3, 'City Break');
 
-INSERT INTO subtopic(id, topic_id, name) VALUES(6, 6, 'Barka');
-INSERT INTO subtopic(id, topic_id, name) VALUES(7, 4, 'Kapcie');
-INSERT INTO subtopic(id, topic_id, name) VALUES(8, 4, 'Samochód');
+INSERT INTO person(id, image_url, name) VALUES(1, 'url', 'Bartek');
+INSERT INTO person(id, image_url, name) VALUES(2, 'url', 'Grzegorz');
 
+INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title) VALUES
+    (1, 1, CURRENT_TIMESTAMP, 1, 1, 'topic 1, subtopic 1', 'Opel rocznik 93'),
+    (2, 1, CURRENT_TIMESTAMP, 1, 2, 'topic 1, subtopic 2', 'Kilo gwoździ'),
+    (3, 1, CURRENT_TIMESTAMP, 2, 3, 'topic 2, subtopic 3', 'Dobre podręczniki dla początkujących'),
+    (4, 1, CURRENT_TIMESTAMP, 2, 4, 'topic 2, subtopic 4', 'Krzyżacy z niemieckim dubbingiem i polskimi napisami? Już w ten piątek w sali Warsaw!'),
+    (5, 1, CURRENT_TIMESTAMP, 3, 5, 'topic 3, subtopic 5', 'Wypad do Sosnowca - weekend pełen wrażeń'),
+    (6, 1, CURRENT_TIMESTAMP, 3, null, 'topic 3, nie ma subtopic', 'W jakiej języku piszecie po godzinach? Ankieta'),
+    (7, 1, CURRENT_TIMESTAMP, 3, null, 'topic 3, nie ma subtopic', 'Interfejsy i kiedy warto ich używać? Fajny wykład online.');
 
+-- UPDATE post(id, subsc)
 
---
-INSERT INTO post(author_id, created_date, id, subtopic_id, topic_id, content, title) VALUES(1, CURRENT_TIMESTAMP, 1, 4, 2, 'Witam Bardzo mi milo zaprosic was na wycieczke', 'Fajna wycieczka');
+INSERT INTO person_to_post(person_id, post_id) VALUES
+    (2, 7);
+
+INSERT INTO person_to_subtopic(person_id, subtopic_id) VALUES
+    (2, 4),
+    (2, 5);
+
+INSERT INTO person_to_topic(person_id, topic_id) VALUES
+    (2, 1),
+    (2, 2);
+
+-- person id 2 should see posts: 1, 2, 3, 4 (once), 5, 7

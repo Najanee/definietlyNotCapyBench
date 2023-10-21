@@ -48,9 +48,9 @@ public class PostMapperImpl implements PostMapper {
                 .expirationDate(entity.getExpirationDate())
                 .topicId(entity.getTopic().getId())
                 .subtopicId(entity.getSubtopic().getId())
-                .subscriberIds(entity.getPeople().stream()
-                        .map(Person::getId)
-                        .collect(Collectors.toSet()))
+                .subscriberIds(entity.getSubscribers().stream()
+                                     .map(Person::getId)
+                                     .collect(Collectors.toSet()))
                 .build();
     }
 
@@ -72,8 +72,8 @@ public class PostMapperImpl implements PostMapper {
                 .subtopic(subtopicRepository
                         .findById(dto.getSubtopicId())
                         .orElseThrow(() -> new EntityNotFoundException(SUBTOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(dto.getSubtopicId()))))
-                .people(dto.getSubscriberIds().stream()
-                        .map(id -> personRepository
+                .subscribers(dto.getSubscriberIds().stream()
+                                .map(id -> personRepository
                                 .findById(id)
                                 .orElseThrow(() -> new EntityNotFoundException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(id))))
                                 .collect(Collectors.toSet()))

@@ -13,6 +13,7 @@ import com.capgemini.capybench.Anzeige2.repository.TopicRepository;
 import com.capgemini.capybench.Anzeige2.service.interfaces.PostService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ import java.util.Set;
 import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.*;
 @Component
 @Transactional
+@Slf4j
 public class PostServiceImpl implements PostService {
 
     @Autowired
@@ -57,43 +59,20 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getAllFollowedPostsByPersonId(Long personId) {
-        Person person = findPersonById(personId);
 
-        List<Long> topicIds = person.getSubscribedTopics()
-                .stream()
-                .map(Topic::getId)
-                .toList();
+        final var postDtos = postRepository
+            .findAllPostsFollowedBy(personId)
+            .stream()
+            .map(postMapper::toDto)
+            .toList();
 
-        List<Long> subtopicIds = person.getSubscribedSubtopics()
-                .stream()
-                .map(Subtopic::getId)
-                .toList();
+        log.info(postDtos.toString());
 
-        List<Long> postIds = person.getSubscribedPosts()
-                .stream()
-                .map(Post::getId)
-                .toList();
+        return postDtos;
+    }
 
-        return postRepository.findAllBy(topicIds, subtopicIds, postIds)
-                .stream()
-                .map(postMapper::toDto)
-                .toList();
-
-//        Set<Post> followedPosts = person.getSubscribedPosts();
-//        Set<Post> postsFromFollowedSubtopics = person.getSubscribedSubtopics().stream()
-//                .flatMap(subtopic -> subtopic.getPosts().stream())
-//                .collect(Collectors.toSet());
-//        Set<Post> postsFromFollowedTopics = person.getSubscribedTopics().stream()
-//                .flatMap(subtopic -> subtopic.getPosts().stream())
-//                .collect(Collectors.toSet());
-//        List<Post> allPosts = new ArrayList<>();
-//        allPosts.addAll(followedPosts);
-//        allPosts.addAll(postsFromFollowedSubtopics);
-//        allPosts.addAll(postsFromFollowedTopics);
-//        return allPosts.stream()
-//                .distinct()
-//                .map(postMapper::toDto)
-//                .toList();
+    public List<Post> getAllFollowedPosts(Long personId) {
+        return postRepository.findAllPostsFollowedBy(personId);
     }
 
     private Person findPersonById(Long personId) {
