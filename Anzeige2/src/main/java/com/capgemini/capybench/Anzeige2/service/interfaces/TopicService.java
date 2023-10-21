@@ -11,4 +11,5 @@ public interface TopicService {
     Long updateTopic(TopicDto topic);
     List<TopicDto> getAllTopics();
     TopicDto getTopicById(Long topicId);
+    void addFollowedTopic(Long personId, Long topicId);
 }

@@ -45,17 +45,12 @@ public class PostServiceImpl implements PostService {
 
     public Long addPost(PostDto postDto, Long topicId, Long subtopicId) {
         Subtopic subtopic = findSubtopicById(subtopicId);
+        if (subtopicId != null) {
+            subtopic = findSubtopicById(subtopicId);
+        }
         Topic topic = findTopicById(topicId);
         Post post = addTopicAndSubtopicToPost(postDto, topic, subtopic);
         addPostToSubtopic(subtopic, post);
-        addPostToTopic(topic, post);
-        return post.getId();
-    }
-
-    @Override
-    public Long addPost(PostDto postDto, Long topicId) {
-        Topic topic = findTopicById(topicId);
-        Post post = addTopicToPost(postDto, topic);
         addPostToTopic(topic, post);
         return post.getId();
     }

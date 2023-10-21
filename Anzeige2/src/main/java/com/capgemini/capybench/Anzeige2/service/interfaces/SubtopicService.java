@@ -8,4 +8,5 @@ public interface SubtopicService {
 
     Long addSubtopic(SubtopicDto subtopicDto, Long topicId);
     List<SubtopicDto> getAllSubtopicsByTopicId(Long topicId);
+    void addFollowedSubtopic(Long personId, Long subtopicId);
 }
