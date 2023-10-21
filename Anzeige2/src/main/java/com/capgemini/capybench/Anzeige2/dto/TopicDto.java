@@ -1,15 +1,18 @@
 package com.capgemini.capybench.Anzeige2.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.NonNull;
+import lombok.Value;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Value
 @Builder
 public class TopicDto {
-    private String name;
-    private Set<Long> peopleIds;
-    private Set<Long> subtopicsIds;
-    private Set<Long> postsIds;
+    long id;
+    @NonNull String name;
+    Set<SubtopicDto> subtopics;
+    Set<Long> subscriberIds; // if contains ID of the requesting Person, then that Person is subscribing
+    LocalDateTime expirationDate;
 }

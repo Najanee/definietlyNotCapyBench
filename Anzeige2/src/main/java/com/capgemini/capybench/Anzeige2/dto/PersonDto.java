@@ -1,14 +1,13 @@
 package com.capgemini.capybench.Anzeige2.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.NonNull;
+import lombok.Value;
 
-import java.util.Set;
-
-@Data
 @Builder
+@Value
 public class PersonDto {
-    private String name;
-    private Set<Long> subscribedTopicsIds;
-    private Set<Long> postsIds;
+    long id;
+    @NonNull String name;
+    @NonNull String imageUrl;
 }

@@ -1,31 +1,22 @@
 package com.capgemini.capybench.Anzeige2.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
+import lombok.Value;
 
-@Getter
-@Setter
+import java.time.LocalDateTime;
+import java.util.Set;
+
+@Value
 @Builder
 public class PostDto {
-    private String title;
-    private String content;
-    private Long personId;
-    private Long topicId;
-    private Long subtopicId;
-    @JsonCreator
-    public PostDto(@JsonProperty("title") String title,
-                   @JsonProperty("content") String content,
-                   @JsonProperty("personId") Long personId,
-                   @JsonProperty("topicId") Long topicId,
-                   @JsonProperty("subtopic") Long subtopicId) {
-        this.title = title;
-        this.content = content;
-        this.personId = personId;
-        this.topicId = topicId;
-        this.subtopicId = subtopicId;
-    }
-
+    long id;
+    @NonNull String title;
+    @NonNull String content;
+    @NonNull LocalDateTime createDate;
+    @NonNull PersonDto author;
+    LocalDateTime expirationDate;
+    Set<Long> subscriberIds; // if contains ID of the requesting Person, then that Person is subscribing
+    long topicId;
+    Long subtopicId;
 }
