@@ -34,7 +34,6 @@ public class SubtopicServiceImpl implements SubtopicService {
         this.topicRepository = topicRepository;
     }
 
-
     @Override
     public Long addSubtopic(SubtopicDto subtopicDto, Long topicId) {
         Topic topic = topicRepository

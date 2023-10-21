@@ -8,12 +8,13 @@ import com.capgemini.capybench.Anzeige2.service.interfaces.TopicService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.TOPIC_DTO_MUST_NOT_BE_NULL;
 import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.TOPIC_ENTITY_WITH_ID_S_NOT_FOUND;
-
+@Component
 @Transactional
 public class TopicServiceImpl implements TopicService {
 
@@ -46,7 +47,6 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public Long updateTopic(TopicDto topicDto) {
-        //TODO: to jest spierdololo
         Topic topicEntity = topicRepository.findById(topicDto.getId()).orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicDto.getId())));
         Topic updatedEntity = topicMapper.toEntity(topicDto);
         if (topicDto.getName()!= null) {
@@ -62,5 +62,12 @@ public class TopicServiceImpl implements TopicService {
                 .map(topicMapper::toDto)
                 .toList();
     }
+
+    @Override
+    public TopicDto getTopicById(final Long topicId) {
+        Topic topic = topicRepository.getTopicById(topicId);
+        return topicMapper.toDto(topic);
+    }
+
 }
 

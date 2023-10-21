@@ -1,14 +1,12 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
 import com.capgemini.capybench.Anzeige2.dto.SubtopicDto;
-import com.capgemini.capybench.Anzeige2.entity.Subtopic;
 import com.capgemini.capybench.Anzeige2.service.SubtopicServiceImpl;
 import com.capgemini.capybench.Anzeige2.service.interfaces.SubtopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,5 +27,10 @@ public class SubtopicController {
 
         return ResponseEntity.ok(responseBody);
     }
-
+    @PutMapping
+    @CrossOrigin("*")
+    public ResponseEntity<Long> addSubtopic(@RequestParam("topicId") Long topicId,
+                                            @RequestParam("subtopicName") String subtopicName){
+        return ResponseEntity.ok(1L);
+    }
 }

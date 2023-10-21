@@ -39,7 +39,7 @@ public class Post {
 
     @ManyToMany(
             mappedBy = "subscribedPosts",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<Person> people;
 
     @PrePersist

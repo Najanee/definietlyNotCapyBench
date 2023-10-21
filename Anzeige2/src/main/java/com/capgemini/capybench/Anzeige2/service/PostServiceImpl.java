@@ -14,12 +14,13 @@ import com.capgemini.capybench.Anzeige2.service.interfaces.PostService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 
 import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.*;
-
+@Component
 @Transactional
 public class PostServiceImpl implements PostService {
 

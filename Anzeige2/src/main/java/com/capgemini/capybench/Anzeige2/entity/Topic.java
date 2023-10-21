@@ -24,7 +24,7 @@ public class Topic {
     // Subscribers
     @ManyToMany(
             mappedBy = "subscribedTopics",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<Person> people;
 
     @OneToMany(

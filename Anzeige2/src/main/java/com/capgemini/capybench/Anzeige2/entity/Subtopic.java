@@ -26,13 +26,13 @@ public class Subtopic {
     // Subscribers
     @ManyToMany(
             mappedBy = "subscribedSubtopics",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<Person> people;
 
     // Posts belonging to the subtopic
     @OneToMany(
             mappedBy = "subtopic",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<Post> posts;
 
 }
