@@ -25,4 +25,7 @@ public class Subtopic {
             fetch = FetchType.EAGER)
     private Set<Post> posts;
 
+    @ManyToOne
+    private Topic topic;
+
 }

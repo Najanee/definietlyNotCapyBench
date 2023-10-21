@@ -26,8 +26,7 @@ public class Topic {
             fetch = FetchType.EAGER)
     private Set<Person> people;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subtopic_id")
+    @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER)
     private Set<Subtopic> subtopics;
 
     @OneToMany(
