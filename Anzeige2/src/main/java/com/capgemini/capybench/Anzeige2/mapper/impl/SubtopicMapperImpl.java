@@ -33,6 +33,7 @@ public class SubtopicMapperImpl implements SubtopicMapper {
                 .postsIds(entity.getPosts().stream()
                         .map(Post::getId)
                         .collect(Collectors.toSet()))
+                .expirationDate(entity.getExpirationDate())
                 .build();
     }
 
@@ -49,6 +50,7 @@ public class SubtopicMapperImpl implements SubtopicMapper {
                                 .findById(id)
                                 .orElseThrow(() -> new EntityNotFoundException(POST_ENTITY_WITH_ID_S_NOR_FOUND.formatted(id))))
                         .collect(Collectors.toSet()))
+                .expirationDate(dto.getExpirationDate())
                 .build();
     }
 }
