@@ -41,6 +41,7 @@ public class TopicMapperImpl implements TopicMapper {
         return TopicDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
+                .expirationDate(entity.getExpirationDate())
                 .subscriberIds(entity.getPeople().stream()
                         .map(Person::getId)
                         .collect(Collectors.toSet()))
@@ -62,6 +63,7 @@ public class TopicMapperImpl implements TopicMapper {
         return Topic.builder()
                 .id(dto.getId())
                 .name(dto.getName())
+                .expirationDate(dto.getExpirationDate())
                 .people(dto.getSubscriberIds().stream()
                         .map(id -> personRepository
                                 .findById(id)

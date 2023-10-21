@@ -28,6 +28,9 @@ public class Post {
     @Column
     private LocalDateTime createdDate;
 
+    @Column
+    private LocalDateTime expirationDate;
+
     @ManyToOne
     private Topic topic;
 
@@ -40,7 +43,7 @@ public class Post {
     @ManyToMany(
             mappedBy = "subscribedPosts",
             fetch = FetchType.LAZY)
-    private Set<Person> people;
+    private Set<Person> people; //subscribers
 
     @PrePersist
     private void prePersist() {

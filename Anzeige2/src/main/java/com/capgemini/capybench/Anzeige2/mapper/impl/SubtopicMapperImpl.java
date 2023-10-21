@@ -28,6 +28,7 @@ public class SubtopicMapperImpl implements SubtopicMapper {
             throw new IllegalArgumentException(SUBTOPIC_MUST_NOT_BE_NULL);
         }
         return SubtopicDto.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .postsIds(entity.getPosts().stream()
                         .map(Post::getId)
@@ -41,6 +42,7 @@ public class SubtopicMapperImpl implements SubtopicMapper {
             throw new IllegalArgumentException(SUBTOPIC_DTO_MUST_NOT_BE_NULL);
         }
         return Subtopic.builder()
+                .id(dto.getId())
                 .name(dto.getName())
                 .posts(dto.getPostsIds().stream()
                         .map(id -> postRepository

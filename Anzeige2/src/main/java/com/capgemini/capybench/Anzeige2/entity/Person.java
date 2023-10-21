@@ -22,6 +22,9 @@ public class Person {
     @Column
     private String name;
 
+    @Column
+    private String imageUrl;
+
     @OneToMany(
             mappedBy = "author",
             fetch = FetchType.LAZY)
