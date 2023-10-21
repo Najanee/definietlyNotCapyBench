@@ -1,5 +1,6 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
+import com.capgemini.capybench.Anzeige2.dto.NewPostDto;
 import com.capgemini.capybench.Anzeige2.dto.PostDto;
 import com.capgemini.capybench.Anzeige2.entity.Post;
 import com.capgemini.capybench.Anzeige2.service.interfaces.PostService;
@@ -22,7 +23,7 @@ public class PostController {
     }
     @PostMapping
     @CrossOrigin("*")
-    public ResponseEntity<String> addPost(@RequestBody PostDto postDto){
+    public ResponseEntity<String> addPost(@RequestBody NewPostDto postDto){
 
         return ResponseEntity.ok("Post successfully added");
     }

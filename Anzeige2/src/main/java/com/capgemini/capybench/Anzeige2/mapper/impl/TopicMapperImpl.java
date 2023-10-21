@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,7 @@ public class TopicMapperImpl implements TopicMapper {
         if (entity == null) {
             throw new IllegalArgumentException(TOPIC_MUST_NOT_BE_NULL);
         }
+        List<Subtopic> subtopics = subtopicRepository.findAllSubtopicsByTopicId(entity.getId());
         return TopicDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -45,11 +47,11 @@ public class TopicMapperImpl implements TopicMapper {
                 .subscriberIds(entity.getPeople().stream()
                         .map(Person::getId)
                         .collect(Collectors.toSet()))
-                .subtopics(mapToSubtopicDtos(entity.getSubtopics()))
+                .subtopics(mapToSubtopicDtos(subtopics))
                 .build();
     }
 
-    private Set<SubtopicDto> mapToSubtopicDtos(Set<Subtopic> subtopics) {
+    private Set<SubtopicDto> mapToSubtopicDtos(List<Subtopic> subtopics) {
         return subtopics.stream()
                 .map(subtopicMapper::toDto)
                 .collect(Collectors.toSet());
