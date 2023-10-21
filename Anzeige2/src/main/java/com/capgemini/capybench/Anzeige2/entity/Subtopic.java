@@ -34,4 +34,5 @@ public class Subtopic {
             mappedBy = "subtopic",
             fetch = FetchType.EAGER)
     private Set<Post> posts;
+
 }

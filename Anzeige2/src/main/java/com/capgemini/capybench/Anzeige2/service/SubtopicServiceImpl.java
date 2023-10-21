@@ -10,12 +10,14 @@ import com.capgemini.capybench.Anzeige2.service.interfaces.SubtopicService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
 import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.TOPIC_ENTITY_WITH_ID_S_NOT_FOUND;
 
+@Service
 @Transactional
 public class SubtopicServiceImpl implements SubtopicService {
 

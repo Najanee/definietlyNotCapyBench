@@ -8,11 +8,13 @@ import com.capgemini.capybench.Anzeige2.repository.PostRepository;
 import com.capgemini.capybench.Anzeige2.repository.TopicRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.*;
 
+@Component
 public class PersonMapperImpl implements PersonMapper {
 
     @Autowired

@@ -7,9 +7,10 @@ import com.capgemini.capybench.Anzeige2.repository.SubtopicRepository;
 import com.capgemini.capybench.Anzeige2.repository.TopicRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.*;
-
+@Component
 public class PostMapperImpl implements PostMapper {
     @Autowired
     private final PersonRepository personRepository;
