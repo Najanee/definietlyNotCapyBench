@@ -20,7 +20,7 @@ public class NewPostDto {
                       @JsonProperty("content") String content,
                       @JsonProperty("personId") long authorId,
                       @JsonProperty("topicId") long topicId,
-                      @JsonProperty("subtopic") Long subtopicId) {
+                      @JsonProperty("subtopicId") Long subtopicId) {
         this.title = title;
         this.content = content;
         this.authorId = authorId;
