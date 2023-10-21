@@ -40,13 +40,14 @@ public class TopicMapperImpl implements TopicMapper {
             throw new IllegalArgumentException(TOPIC_MUST_NOT_BE_NULL);
         }
         List<Subtopic> subtopics = subtopicRepository.findAllSubtopicsByTopicId(entity.getId());
+        Set<Long> subscribersIds = personRepository.findAllPeopleByTopicId(entity.getId()).stream()
+                .map(Person::getId)
+                .collect(Collectors.toSet());
         return TopicDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .expirationDate(entity.getExpirationDate())
-                .subscriberIds(entity.getPeople().stream()
-                        .map(Person::getId)
-                        .collect(Collectors.toSet()))
+                .subscriberIds(subscribersIds)
                 .subtopics(mapToSubtopicDtos(subtopics))
                 .build();
     }
