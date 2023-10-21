@@ -21,12 +21,15 @@ public class Topic {
     @Column
     private String name;
 
+    // Subscribers
     @ManyToMany(
             mappedBy = "subscribedTopics",
             fetch = FetchType.EAGER)
     private Set<Person> people;
 
-    @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER)
+    @OneToMany(
+            mappedBy = "topic",
+            fetch = FetchType.EAGER)
     private Set<Subtopic> subtopics;
 
     @OneToMany(

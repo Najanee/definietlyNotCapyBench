@@ -20,12 +20,18 @@ public class Subtopic {
     @Column
     private String name;
 
+    @ManyToOne
+    private Topic topic;
+
+    // Subscribers
+    @ManyToMany(
+            mappedBy = "subscribedSubtopics",
+            fetch = FetchType.EAGER)
+    private Set<Person> people;
+
+    // Posts belonging to the subtopic
     @OneToMany(
             mappedBy = "subtopic",
             fetch = FetchType.EAGER)
     private Set<Post> posts;
-
-    @ManyToOne
-    private Topic topic;
-
 }

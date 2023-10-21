@@ -32,7 +32,7 @@ public class PersonMapperImpl implements PersonMapper {
         }
         return PersonDto.builder()
                 .name(entity.getName())
-                .postsIds(entity.getPosts().stream()
+                .postsIds(entity.getSubscribedPosts().stream()
                     .map(Post::getId)
                         .collect(Collectors.toSet()))
                 .subscribedTopicsIds(entity.getSubscribedTopics().stream()
@@ -48,7 +48,7 @@ public class PersonMapperImpl implements PersonMapper {
         }
         return Person.builder()
                 .name(dto.getName())
-                .posts(dto.getPostsIds().stream()
+                .subscribedPosts(dto.getPostsIds().stream()
                         .map(id -> postRepository
                                 .findById(id)
                                 .orElseThrow(() -> new EntityNotFoundException(POST_ENTITY_WITH_ID_S_NOR_FOUND.formatted(id))))

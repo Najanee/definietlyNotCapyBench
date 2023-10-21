@@ -32,7 +32,7 @@ public class PostMapperImpl implements PostMapper {
         return PostDto.builder()
                 .title(entity.getTitle())
                 .content(entity.getContent())
-                .personId(entity.getPerson().getId())
+                .personId(entity.getAuthor().getId())
                 .topicId(entity.getTopic().getId())
                 .subtopicId(entity.getSubtopic().getId())
                 .build();
@@ -44,7 +44,7 @@ public class PostMapperImpl implements PostMapper {
         return Post.builder()
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .person(personRepository
+                .author(personRepository
                         .findById(dto.getPersonId())
                         .orElseThrow(() -> new EntityNotFoundException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(dto.getPersonId()))))
                 .topic(topicRepository

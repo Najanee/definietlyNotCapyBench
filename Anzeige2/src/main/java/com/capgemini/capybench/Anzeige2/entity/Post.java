@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,9 +25,6 @@ public class Post {
     @Column
     private String content;
 
-    @ManyToOne
-    private Person person;
-
     @Column
     private LocalDateTime createdDate;
 
@@ -35,6 +33,14 @@ public class Post {
 
     @ManyToOne
     private Subtopic subtopic;
+
+    @ManyToOne
+    private Person author;
+
+    @ManyToMany(
+            mappedBy = "subscribedPosts",
+            fetch = FetchType.EAGER)
+    private Set<Person> people;
 
     @PrePersist
     private void prePersist() {

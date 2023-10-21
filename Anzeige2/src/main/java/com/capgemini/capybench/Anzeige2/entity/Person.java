@@ -22,6 +22,11 @@ public class Person {
     @Column
     private String name;
 
+    @OneToMany(
+            mappedBy = "author",
+            fetch = FetchType.EAGER)
+    private Set<Post> authoredPosts;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "person_to_topic",
@@ -30,9 +35,19 @@ public class Person {
     )
     private Set<Topic> subscribedTopics;
 
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "person"
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "person_to_subtopic",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "subtopic_id")
     )
-    private Set<Post> posts;
+    private Set<Subtopic> subscribedSubtopics;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "person_to_post",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private Set<Post> subscribedPosts;
 }
