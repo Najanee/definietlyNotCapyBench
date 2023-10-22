@@ -1,5 +1,6 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
+import com.capgemini.capybench.Anzeige2.configuration.RedirectSsl;
 import com.capgemini.capybench.Anzeige2.dto.NewPostDto;
 import com.capgemini.capybench.Anzeige2.dto.PersonDto;
 import com.capgemini.capybench.Anzeige2.dto.PostDto;
@@ -36,12 +37,15 @@ public class PostController {
 
     @PostMapping
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<String> addPost(@RequestBody NewPostDto postDto){
         postService.addPost(postDto);
         return ResponseEntity.ok("Post successfully added");
     }
+
     @GetMapping
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<List<PostDto>> getPostsBySubscriber(
         @RequestParam("subscriberId") Long subscriberId){
 

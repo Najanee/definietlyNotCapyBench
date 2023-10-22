@@ -14,6 +14,7 @@ public class Logging {
         loggingFilter.setIncludeQueryString(true);
         loggingFilter.setIncludePayload(true);
         loggingFilter.setIncludeHeaders(false);
+        loggingFilter.setIncludePayload(true);
         return loggingFilter;
     }
 }

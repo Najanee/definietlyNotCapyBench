@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("""
-
         SELECT DISTINCT post FROM Post post
                 LEFT JOIN FETCH post.topic
                 LEFT JOIN FETCH post.subtopic 

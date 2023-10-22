@@ -1,5 +1,6 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
+import com.capgemini.capybench.Anzeige2.configuration.RedirectSsl;
 import com.capgemini.capybench.Anzeige2.service.interfaces.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,9 @@ public class SubscriptionController {
     @Autowired
     private PersonService personService;
 
-    @PostMapping(path = "/{subscriberId}", params = "postId")
+    @GetMapping(path = "/toPost/{subscriberId}", params = "postId")
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<String> subscribeToPost(
         @RequestParam("postId") Long postId,
         @PathVariable("subscriberId") Long subscriberId) {
@@ -28,8 +30,9 @@ public class SubscriptionController {
         return ResponseEntity.ok("Subscription to Post added.");
     }
 
-    @PostMapping(path = "/{subscriberId}", params = "subtopicId")
+    @GetMapping(path = "/toSubtopic/{subscriberId}", params = "subtopicId")
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<String> subscribeToSubtopic(
         @RequestParam("subtopicId") Long subtopicId,
         @PathVariable("subscriberId") Long subscriberId) {
@@ -39,8 +42,9 @@ public class SubscriptionController {
         return ResponseEntity.ok("Subscription to subtopic added.");
     }
 
-    @PostMapping(path = "/{subscriberId}", params = "topicId")
+    @GetMapping(path = "/toTopic/{subscriberId}", params = "topicId")
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<String> subscribeToTopic(
         @RequestParam("topicId") Long topicId,
         @PathVariable("subscriberId") Long subscriberId) {
@@ -50,8 +54,10 @@ public class SubscriptionController {
         return ResponseEntity.ok("Subscription to Topic added.");
     }
 
-    @DeleteMapping(path = "/{subscriberId}", params = "postId")
+
+    @GetMapping(path = "/fromPost/{subscriberId}", params = "postId")
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<String> unsubscribeFromPost(
         @RequestParam("postId") Long postId,
         @PathVariable("subscriberId") Long subscriberId) {
@@ -62,8 +68,9 @@ public class SubscriptionController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping(path = "/{subscriberId}", params = "subtopicId")
+    @GetMapping(path = "/fromSubtopic/{subscriberId}", params = "subtopicId")
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<String> unsubscribeFromSubtopic(
         @RequestParam("subtopicId") Long subtopicId,
         @PathVariable("subscriberId") Long subscriberId) {
@@ -74,8 +81,10 @@ public class SubscriptionController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping(path = "/{subscriberId}", params = "topicId")
+
+    @GetMapping(path = "/fromTopic/{subscriberId}", params = "topicId")
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<String> unsubscribeFromTopic(
         @RequestParam("topicId") Long subtopicId,
         @PathVariable("subscriberId") Long subscriberId) {

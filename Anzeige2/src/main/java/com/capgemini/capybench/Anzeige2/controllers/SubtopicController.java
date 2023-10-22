@@ -1,28 +1,26 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
+import com.capgemini.capybench.Anzeige2.configuration.RedirectSsl;
 import com.capgemini.capybench.Anzeige2.dto.SubtopicDto;
-import com.capgemini.capybench.Anzeige2.service.SubtopicServiceImpl;
 import com.capgemini.capybench.Anzeige2.service.interfaces.SubtopicService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/subtopics")
+@RequiredArgsConstructor
 public class SubtopicController {
-    private SubtopicService subtopicService;
-
     @Autowired
-    public SubtopicController(SubtopicServiceImpl subtopicService){
-        this.subtopicService = subtopicService;
-    }
+    private SubtopicService subtopicService;
 
     @GetMapping(params = "topicId")
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<List<SubtopicDto>> getAllSubtopicsByTopic(@RequestParam("topicId") Long topicId){
         List<SubtopicDto> responseBody = subtopicService.getAllSubtopicsByTopicId(topicId);
 
@@ -30,9 +28,10 @@ public class SubtopicController {
     }
     @PutMapping
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<Long> addSubtopic(@RequestParam("topicId") Long topicId,
                                             @RequestParam("subtopicName") String subtopicName){
-//        SubtopicDto subtopicDto = new SubtopicDto(topicId, subtopicName,new HashSet<>(), new HashSet<>(), null);
+
         return ResponseEntity.ok(1L);
     }
 }

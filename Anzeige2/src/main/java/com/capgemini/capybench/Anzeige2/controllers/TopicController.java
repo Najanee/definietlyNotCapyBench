@@ -1,5 +1,6 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
+import com.capgemini.capybench.Anzeige2.configuration.RedirectSsl;
 import com.capgemini.capybench.Anzeige2.dto.SubtopicDto;
 import com.capgemini.capybench.Anzeige2.dto.TopicDto;
 import com.capgemini.capybench.Anzeige2.entity.Subtopic;
@@ -36,6 +37,7 @@ public class TopicController {
 
     @GetMapping
     @CrossOrigin("*")
+    @RedirectSsl
     public ResponseEntity<List<TopicDto>> getAllTopics() {
 
         return topicRepository.findAll()

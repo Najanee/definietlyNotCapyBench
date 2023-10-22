@@ -21,7 +21,7 @@ INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, ti
 (-3, 3, CURRENT_TIMESTAMP, 2, 3, 'topic 2, subtopic 3', 'Dobre podręczniki dla początkujących'),
 (-4, 1, CURRENT_TIMESTAMP, 2, 4, 'topic 2, subtopic 4', 'Krzyżacy z niemieckim dubbingiem i polskimi napisami? Już w ten piątek w sali Warsaw!'),
 (-5, 1, CURRENT_TIMESTAMP, 3, 5, 'topic 3, subtopic 5', 'Wypad do Sosnowca - weekend pełen wrażeń'),
-(-6, 2, CURRENT_TIMESTAMP, 3, null, 'topic 3, nie ma subtopic', 'W jakiej języku piszecie po godzinach? Ankieta'),
+(-6, 2, CURRENT_TIMESTAMP, 3, null, 'topic 3, nie ma subtopic', 'W jakim języku piszecie po godzinach? Ankieta'),
 (-7, 2, CURRENT_TIMESTAMP, 3, null, 'topic 3, nie ma subtopic', 'Interfejsy i kiedy warto ich używać? Fajny wykład online.');
 
 INSERT INTO person_to_post(person_id, post_id) VALUES
