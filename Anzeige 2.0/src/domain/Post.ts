@@ -6,20 +6,27 @@ export class Post {
     id: number;
     title: string;
     content: string;
+    createDate: Date;
     author: Person;
-    createdDate: Date;
-    subtopic?: Subtopic | undefined;
+    expirationDate: Date;
     topic: Topic;
+    subtopic: Subtopic | undefined;
+    subscriberIds: number[];
 
     constructor(id: number, title: string, 
-                content: string, author: Person, 
-                createdDate: Date, topic: Topic, subtopic?: Subtopic) {
+                content: string, createDate: Date, 
+                author: Person, expirationDate: Date, 
+                subscriberIds: number[], topic: Topic, 
+                subtopic?: Subtopic) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
-        this.createdDate = createdDate;
-        this.subtopic = subtopic;
+        this.createDate = new Date(createDate);
+        this.expirationDate = new Date(expirationDate);
         this.topic = topic;
+        this.subtopic = subtopic;
+        this.subscriberIds = subscriberIds;
+
     }
 }
