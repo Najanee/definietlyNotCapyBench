@@ -61,7 +61,7 @@ public class PostServiceImpl implements PostService {
     public List<PostDto> getAllFollowedPostsByPersonId(Long personId) {
 
         final var postDtos = postRepository
-            .findAllPostsFollowedBy(personId)
+            .findPostsForPerson(personId)
             .stream()
             .map(postMapper::toDto)
             .toList();
@@ -71,9 +71,6 @@ public class PostServiceImpl implements PostService {
         return postDtos;
     }
 
-    public List<Post> getAllFollowedPosts(Long personId) {
-        return postRepository.findAllPostsFollowedBy(personId);
-    }
 
     private Person findPersonById(Long personId) {
         return personRepository

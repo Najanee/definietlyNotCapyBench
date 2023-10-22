@@ -83,7 +83,7 @@ public class PostController {
         Map<Person, List<Post>> personToFollowedPosts = new HashMap<>();
 
         people.forEach(person -> {
-            final var allPostsFollowedBy = postRepository.findAllPostsFollowedBy(person.getId());
+            final var allPostsFollowedBy = postRepository.findPostsForPerson(person.getId());
             personToFollowedPosts.put(person, allPostsFollowedBy);
         });
         return personToFollowedPosts;

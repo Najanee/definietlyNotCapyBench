@@ -6,11 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("""
-            SELECT DISTINCT post FROM Post post
+
+        SELECT DISTINCT post FROM Post post
                 LEFT JOIN FETCH post.topic
                 LEFT JOIN FETCH post.subtopic 
             WHERE post IN (
@@ -32,6 +34,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                 WHERE person.id = :personId
             )
             """)
-    List<Post> findAllPostsFollowedBy(
-        @Param("personId") long personId);
-    }
+    List<Post> findPostsForPerson(
+        @Param("personId") Long personId);
+
+}
