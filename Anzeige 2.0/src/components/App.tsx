@@ -27,7 +27,7 @@ export default function App() {
   return (
     <TeamsFxContext.Provider value={{ theme, themeString, teamsUserCredential }}>
       <FluentProvider
-        className="w-full h-full"
+        className="w-full h-screen overflow-auto relative"
         theme={
           themeString === "dark"
             ? teamsDarkTheme

@@ -17,7 +17,7 @@ type Props = {
 export function TopicBar({ topics, isSubscribed, subscribedTopics, setSubscribedTopics, subscribedSubtopics, setSubscribedSubtopics } : Props) {
 
     return (
-        <div className="w-200">
+        <div className="w-300 px-10 sticky top-10 left-0">
             <Input 
                 type="text"
                 placeholder="Search topics"
