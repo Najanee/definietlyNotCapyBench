@@ -78,6 +78,9 @@ public class PostServiceImpl implements PostService {
     }
 
     private Subtopic findSubtopicById(Long subtopicId) {
+        if (subtopicId == null) {
+            return null;
+        }
         return subtopicRepository
                 .findById(subtopicId)
                 .orElseThrow(() -> new EntityNotFoundException(SUBTOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subtopicId)));

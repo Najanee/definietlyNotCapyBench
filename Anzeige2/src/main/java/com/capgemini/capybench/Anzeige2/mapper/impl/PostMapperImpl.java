@@ -4,6 +4,7 @@ import com.capgemini.capybench.Anzeige2.dto.PersonDto;
 import com.capgemini.capybench.Anzeige2.dto.PostDto;
 import com.capgemini.capybench.Anzeige2.entity.Person;
 import com.capgemini.capybench.Anzeige2.entity.Post;
+import com.capgemini.capybench.Anzeige2.entity.Subtopic;
 import com.capgemini.capybench.Anzeige2.mapper.PostMapper;
 import com.capgemini.capybench.Anzeige2.repository.PersonRepository;
 import com.capgemini.capybench.Anzeige2.repository.SubtopicRepository;
@@ -35,6 +36,7 @@ public class PostMapperImpl implements PostMapper {
         if (entity == null) {
             throw new IllegalArgumentException(POST_MUST_NOT_BE_NULL);
         }
+        Subtopic subtopic = entity.getSubtopic();
         return PostDto.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
@@ -47,7 +49,7 @@ public class PostMapperImpl implements PostMapper {
                         .build())
                 .expirationDate(entity.getExpirationDate())
                 .topicId(entity.getTopic().getId())
-                .subtopicId(entity.getSubtopic().getId())
+                .subtopicId(subtopic == null ? null : subtopic.getId())
                 .subscriberIds(entity.getPeople().stream()
                         .map(Person::getId)
                         .collect(Collectors.toSet()))

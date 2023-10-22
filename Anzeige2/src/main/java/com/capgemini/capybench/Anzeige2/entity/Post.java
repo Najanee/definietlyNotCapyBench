@@ -1,5 +1,6 @@
 package com.capgemini.capybench.Anzeige2.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +35,7 @@ public class Post {
     private Topic topic;
 
     @ManyToOne
+    @Nullable
     private Subtopic subtopic;
 
     @ManyToOne
