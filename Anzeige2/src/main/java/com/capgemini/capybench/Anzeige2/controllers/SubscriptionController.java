@@ -10,7 +10,7 @@ import static com.capgemini.capybench.Anzeige2.service.PersonServiceImpl.ERROR;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("subscription")
+@RequestMapping("/subscription")
 @RequiredArgsConstructor
 public class SubscriptionController {
 
