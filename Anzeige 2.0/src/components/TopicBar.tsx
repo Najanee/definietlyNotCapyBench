@@ -27,7 +27,7 @@ export function TopicBar({ topics, isSubscribed, subscribedTopics, setSubscribed
     }
 
     return (
-        <div className="px-10 sticky top-10 left-0">
+        <div>
             <Input
                 type="text"
                 placeholder="Search topics"

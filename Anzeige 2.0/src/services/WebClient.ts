@@ -1,5 +1,6 @@
 import { NewPost } from "../components/dto/NewPost";
 import { PostDto } from "../components/dto/PostDto";
+import { NewPost } from "../domain/NewPost";
 import { Topic } from "../domain/Topic";
 
 async function getTopics() : Promise<Topic[]> {
@@ -26,6 +27,25 @@ async function getPostsDtos(userId: number) : Promise<PostDto[]> {
   } catch (error) {
     console.log(error);
     return new Promise((resolve, reject) => []);
+  }
+}
+
+async function postNewPost(newPost: NewPost) {
+  try {
+    const response = await fetch(`http://localhost:8080/posts`, {
+      method: 'POST',
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify(newPost)});
+
+      response.status === 200 ? console.log('Post submitted.') : console.log('Beee...');
+
+  } catch (error) {
+    console.log(error);
+    console.log(`Failed to post New Post.`);
+
+    return new Promise((resolve, reject) => undefined);
   }
 }
 

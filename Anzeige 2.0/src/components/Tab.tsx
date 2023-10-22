@@ -114,18 +114,34 @@ export function Tab() {
             />
           </div>
         </div>
-        <Divider vertical />
-        <div className="relative">
-          <TopicBar
-            topics={topics}
-            isSubscribed={isSubscribed}
-            subscribedSubtopics={subscribedSubtopics}
-            subscribedTopics={subscribedTopics}
-            setSubscribedSubtopics={setSubscribedSubtopics}
-            setSubscribedTopics={setSubscribedTopics}
-            toggleSubscribe={toggleSubscribe}
-          />
-        </div>
+        {/* <div className="mx-2">
+          <Divider vertical />
+        </div> */}
+      
+      </div>
+
+      <div className="w-400 top-10 right-0 fixed pr-80 mr-40">
+        <TopicBar
+          topics={topics}
+          isSubscribed={isSubscribed}
+          subscribedSubtopics={subscribedSubtopics}
+          subscribedTopics={subscribedTopics}
+          setSubscribedSubtopics={setSubscribedSubtopics}
+          setSubscribedTopics={setSubscribedTopics}
+          toggleSubscribe={toggleSubscribe}
+        />
+      </div>
+
+      <div className="w-400 bottom-10 right-40 fixed pr-80 mr-40">
+        <Button
+          icon={<AddSquareMultiple16Regular />}
+          size="medium"
+          appearance="primary"
+          iconPosition="before"
+          onClick={getTopics}
+        >
+          New post
+        </Button>
       </div>
     </div>
   );
