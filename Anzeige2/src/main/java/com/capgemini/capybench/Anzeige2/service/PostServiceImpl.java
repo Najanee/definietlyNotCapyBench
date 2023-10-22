@@ -57,6 +57,12 @@ public class PostServiceImpl implements PostService {
         newPost.setTopic(topic);
         newPost.setPeople(new HashSet<>());
         Post persistedPost = postRepository.save(newPost);
+
+        Set<Post> subscribedPosts = author.getSubscribedPosts();
+        subscribedPosts.add(persistedPost);
+        author.setSubscribedPosts(subscribedPosts);
+        personRepository.save(author);
+
         return postMapper.toDto(persistedPost);
     }
 
