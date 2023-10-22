@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { TeamsFxContext } from "./Context";
-import { Divider } from "@fluentui/react-components";
 import { getData, subscribeToResource, unsubscribeFromResource } from "../services/WebClient";
 import { PostCard } from "./PostCard";
 import { TopicBar } from "./TopicBar";
@@ -88,9 +87,9 @@ export function Tab() {
   }, [updatedDate])
 
   return (
-    <div className={`${getTheme()} max-w-screen-lg w-4/5 h-full m-auto py-10`}>
-      <div className="flex justify-around">
-        <div className="flex flex-col max-w-3xl items-center px-10 pb-10 relative">
+    <div className={`${getTheme()} p-4 relative h-screen`}>
+      <div className="flex align-left w-3/5 pl-40">
+        <div className="flex flex-col items-center px-10 pb-10 relative">
             {subscribedPosts.map(post => 
               <PostCard
                 key={post.id}
@@ -104,20 +103,8 @@ export function Tab() {
             )}
           <div className="blur-2xl w-full h-48 fixed bottom-0 left-0 bg-gray-400/20">
           </div>
-          <div className="sticky bottom-5 left-0 mx-10 w-full h-10 bg-inherit">
-            <PostCreator 
-              topics={topics} 
-              userId={USER_ID} 
-              isDisplayed={isPostCreatorDisplayed} 
-              setIsDisplayed={setIsPostCreatorDisplayed}
-              setUpdatedDate={setUpdatedDate}
-            />
-          </div>
-        </div>
-        {/* <div className="mx-2">
-          <Divider vertical />
-        </div> */}
-      
+
+        </div>      
       </div>
 
       <div className="w-400 top-10 right-0 fixed pr-80 mr-40">
@@ -133,16 +120,14 @@ export function Tab() {
       </div>
 
       <div className="w-400 bottom-10 right-40 fixed pr-80 mr-40">
-        <Button
-          icon={<AddSquareMultiple16Regular />}
-          size="medium"
-          appearance="primary"
-          iconPosition="before"
-          onClick={getTopics}
-        >
-          New post
-        </Button>
-      </div>
+            <PostCreator 
+                   topics={topics} 
+                   userId={USER_ID} 
+                   isDisplayed={isPostCreatorDisplayed} 
+                   setIsDisplayed={setIsPostCreatorDisplayed}
+                   setUpdatedDate={setUpdatedDate}
+            />
+          </div>
     </div>
   );
 }

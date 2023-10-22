@@ -1,11 +1,15 @@
 import { NewPost } from "../components/dto/NewPost";
 import { PostDto } from "../components/dto/PostDto";
-import { NewPost } from "../domain/NewPost";
 import { Topic } from "../domain/Topic";
 
 async function getTopics() : Promise<Topic[]> {
   try {
-    const response = await fetch("http://localhost:8080/topics")
+    const response = await fetch("http://localhost:8080/topics", {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    })
     const topics: Topic[] = await response.json();
     console.log(topics);
     return topics
@@ -18,7 +22,12 @@ async function getTopics() : Promise<Topic[]> {
 
 async function getPostsDtos(userId: number) : Promise<PostDto[]> {
   try {
-    const response = await fetch(`http://localhost:8080/posts?subscriberId=${userId}`);
+    const response = await fetch(`http://localhost:8080/posts?subscriberId=${userId}`, {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    });
     const posts: PostDto[] = await response.json();
     console.log(posts);
 
@@ -39,6 +48,7 @@ async function postNewPost(newPost: NewPost) {
       },
       body: JSON.stringify(newPost)});
 
+      
       response.status === 200 ? console.log('Post submitted.') : console.log('Beee...');
 
   } catch (error) {
@@ -69,27 +79,6 @@ async function unsubscribeFromResource(userId: number, resourcePath: string, res
       : console.log(`Unsubscribe for ${resourceType}Id:${resourceId} unsuccessful. Status: ${response.status}`);
   } catch (error) {
     console.log(`Subscription request for ${resourceType}Id:${resourceId} unsuccessful: ${error}`);
-
-    return new Promise((resolve, reject) => undefined);
-  }
-}
-
-async function postNewPost(newPost: NewPost) {
-  try {
-    const response = await fetch(`http://localhost:8080/posts`, {
-      method: 'POST',
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newPost)
-    });
-
-      response.status === 200 ? console.log('Post submitted.') : console.log('Beee...');
-
-  } catch (error) {
-    console.log(error);
-    console.log(`Failed to post New Post.`);
 
     return new Promise((resolve, reject) => undefined);
   }

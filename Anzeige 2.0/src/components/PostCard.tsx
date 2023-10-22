@@ -19,25 +19,22 @@ export function PostCard( { post, isSubscribed, toggleSubscribe }: Props) {
     <Card
         as="div"
         size="large"
-        className="mb-10 px-5 w-full"
+        className="mb-10 px-8 w-full py-8"
         appearance="filled"
     >
       <CardHeader
         header={
-          <div className="flex justify-between content-center w-full" >
-              <Persona 
-                avatar= {
-                  <Image
-                  shape="circular"
-                  fit="cover"
-                  src={post.author.imageUrl}
-                  alt={`${post.author.name} avatar`}
-                  />
-                }
+          <div className="flex justify-between content-center w-full p-2" >
+              <Persona
+                 avatar={{
+                  image: {
+                    src: post.author.imageUrl
+                  },
+                }}
+                size="huge"
                 name = {post.author.name}
                 secondaryText= {post.createDate.toLocaleTimeString()}
-                textAlignment="center"
-              />
+                textAlignment="center"/>
               <Tag>
                 <Text 
                   weight="semibold"
