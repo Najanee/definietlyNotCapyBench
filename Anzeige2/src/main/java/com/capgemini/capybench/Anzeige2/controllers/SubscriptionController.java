@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.capgemini.capybench.Anzeige2.service.PersonServiceImpl.ERROR;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("subscription")
@@ -53,8 +55,11 @@ public class SubscriptionController {
     public ResponseEntity<String> unsubscribeFromPost(
         @RequestParam("postId") Long postId,
         @PathVariable("subscriberId") Long subscriberId) {
-        personService.unsubscribeFromPost(postId, subscriberId);
-        return ResponseEntity.ok("Subscription to Post removed.");
+        String response = personService.unsubscribeFromPost(postId, subscriberId);
+        if (response.startsWith(ERROR)){
+            return ResponseEntity.badRequest().body(response);
+        }
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping(path = "/{subscriberId}", params = "subtopicId")
@@ -62,8 +67,11 @@ public class SubscriptionController {
     public ResponseEntity<String> unsubscribeFromSubtopic(
         @RequestParam("subtopicId") Long subtopicId,
         @PathVariable("subscriberId") Long subscriberId) {
-        personService.unsubscribeFromSubtopic(subtopicId, subscriberId);
-        return ResponseEntity.ok("Subscription to Subtopic removed.");
+        String response = personService.unsubscribeFromSubtopic(subtopicId, subscriberId);
+        if (response.startsWith(ERROR)){
+            return ResponseEntity.badRequest().body(response);
+        }
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping(path = "/{subscriberId}", params = "topicId")
@@ -71,7 +79,10 @@ public class SubscriptionController {
     public ResponseEntity<String> unsubscribeFromTopic(
         @RequestParam("topicId") Long subtopicId,
         @PathVariable("subscriberId") Long subscriberId) {
-        personService.unsubscribeFromTopic(subtopicId, subscriberId);
-        return ResponseEntity.ok("Subscription to Topic removed.");
+        String response = personService.unsubscribeFromTopic(subtopicId, subscriberId);
+        if (response.startsWith(ERROR)){
+            return ResponseEntity.badRequest().body(response);
+        }
+        return ResponseEntity.ok(response);
     }
 }

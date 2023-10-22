@@ -21,6 +21,10 @@ import static com.capgemini.capybench.Anzeige2.shared.MapperConstants.*;
 @Transactional
 public class PersonServiceImpl implements PersonService {
 
+    public static final String ERROR = "ERROR: ";
+    public static final String SUBSCRIPTION_TO_POST_REMOVED = "Subscription to Post removed.";
+    public static final String SUBSCRIPTION_TO_SUBTOPIC_REMOVED = "Subscription to Subtopic removed.";
+    private static final String SUBSCRIPTION_TO_TOPIC_REMOVED = "Subscription to Topic removed.";
     private final PersonRepository personRepository;
     private final TopicRepository topicRepository;
     private final SubtopicRepository subtopicRepository;
@@ -64,47 +68,69 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void unsubscribeFromPost(Long postId, Long subscriberId) {
-        Person person = personRepository
-                .findById(subscriberId)
-                .orElseThrow(() -> new IllegalArgumentException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subscriberId)));
-        Set<Post> subscribedPosts = person.getSubscribedPosts();
-        Post postToRemove = postRepository
-                .findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException(POST_ENTITY_WITH_ID_S_NOR_FOUND.formatted(postId)));
+    public String unsubscribeFromPost(Long postId, Long subscriberId) {
+        Person person;
+        Set<Post> subscribedPosts;
+        Post postToRemove;
+        try {
+            person = personRepository
+                    .findById(subscriberId)
+                    .orElseThrow(() -> new IllegalArgumentException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subscriberId)));
+            subscribedPosts = person.getSubscribedPosts();
+            postToRemove = postRepository
+                    .findById(postId)
+                    .orElseThrow(() -> new IllegalArgumentException(POST_ENTITY_WITH_ID_S_NOR_FOUND.formatted(postId)));
+        }catch (IllegalArgumentException e){
+            return ERROR + e.getMessage();
+        }
 
         subscribedPosts.remove(postToRemove);
         person.setSubscribedPosts(subscribedPosts);
         personRepository.save(person);
+        return SUBSCRIPTION_TO_POST_REMOVED;
     }
 
     @Override
-    public void unsubscribeFromSubtopic(Long subtopicId, Long subscriberId) {
-        Person person = personRepository
-                .findById(subscriberId)
-                .orElseThrow(() -> new IllegalArgumentException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subscriberId)));
-        Set<Subtopic> subscribedSubtopics = person.getSubscribedSubtopics();
-        Subtopic subtopicToRemove = subtopicRepository
-                .findById(subtopicId)
-                .orElseThrow(() -> new IllegalArgumentException(SUBTOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subtopicId)));
-
+    public String unsubscribeFromSubtopic(Long subtopicId, Long subscriberId) {
+        Person person;
+        Set<Subtopic> subscribedSubtopics;
+        Subtopic subtopicToRemove;
+        try{
+            person = personRepository
+                    .findById(subscriberId)
+                    .orElseThrow(() -> new IllegalArgumentException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subscriberId)));
+            subscribedSubtopics = person.getSubscribedSubtopics();
+            subtopicToRemove = subtopicRepository
+                    .findById(subtopicId)
+                    .orElseThrow(() -> new IllegalArgumentException(SUBTOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subtopicId)));
+        }catch (IllegalArgumentException e){
+            return ERROR + e.getMessage();
+        }
         subscribedSubtopics.remove(subtopicToRemove);
         person.setSubscribedSubtopics(subscribedSubtopics);
         personRepository.save(person);
+        return SUBSCRIPTION_TO_SUBTOPIC_REMOVED;
     }
 
     @Override
-    public void unsubscribeFromTopic(Long topicId, Long subscriberId) {
-        Person person = personRepository
-                .findById(subscriberId)
-                .orElseThrow(() -> new IllegalArgumentException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subscriberId)));
-        Set<Topic> subscribedTopics = person.getSubscribedTopics();
-        Topic topicToRemove = topicRepository
-                .findById(topicId)
-                .orElseThrow(() -> new IllegalArgumentException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicId)));
-
+    public String unsubscribeFromTopic(Long topicId, Long subscriberId) {
+        Person person;
+        Set<Topic> subscribedTopics;
+        Topic topicToRemove;
+        try {
+            person = personRepository
+                    .findById(subscriberId)
+                    .orElseThrow(() -> new IllegalArgumentException(PERSON_ENTITY_WITH_ID_S_NOT_FOUND.formatted(subscriberId)));
+            subscribedTopics = person.getSubscribedTopics();
+            topicToRemove = topicRepository
+                    .findById(topicId)
+                    .orElseThrow(() -> new IllegalArgumentException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicId)));
+        }catch (IllegalArgumentException e){
+            return ERROR + e.getMessage();
+        }
         subscribedTopics.remove(topicToRemove);
         person.setSubscribedTopics(subscribedTopics);
         personRepository.save(person);
+        return SUBSCRIPTION_TO_TOPIC_REMOVED;
     }
 }
