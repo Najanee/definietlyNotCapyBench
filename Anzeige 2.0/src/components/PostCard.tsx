@@ -1,17 +1,33 @@
-import {Card, CardFooter, CardHeader, Persona, Image, Text, Divider, Button } from "@fluentui/react-components";
+import {Card, CardFooter, CardHeader, Persona, Image, Text, Divider, Button, Tag } from "@fluentui/react-components";
 import { Post } from "../domain/Post";
-import { Chat16Regular, Comment16Regular, Share16Regular, StarAdd16Regular } from "@fluentui/react-icons";
+import { Chat16Regular, Chat20Regular, Chat32Regular, Chat48Regular, Comment16Regular, Share16Regular, Star16Filled, Star16Regular, StarAdd16Regular } from "@fluentui/react-icons";
+import { Topic } from "../domain/Topic";
+import { Subtopic } from "../domain/Subtopic";
 
 type Props = {
     post: Post
+    isSubscribed: (resource: Topic | Subtopic | Post) => Boolean;
+    subscribedPosts: Post[];
+    setSubscribedPosts: (value: Post[]) => void;
 }
 
-export function PostCard( { post }: Props) {
+export function PostCard( { post, isSubscribed, subscribedPosts, setSubscribedPosts }: Props) {
+
+  const toggleSubscribe = (handledPost: Post) : void => {
+    if(isSubscribed(handledPost)) {
+      const dimnishedPosts = [...subscribedPosts];
+      dimnishedPosts.splice(subscribedPosts.findIndex(post => post.id === handledPost.id), 1)
+      setSubscribedPosts(dimnishedPosts);
+    } else {
+      setSubscribedPosts([...subscribedPosts, handledPost]);
+    }
+  } 
+
     return (
     <Card
         as="div"
         size="large"
-        className="mb-10 p-0"
+        className="mb-10 px-5 w-full"
         appearance="filled"
     >
       <CardHeader
@@ -22,24 +38,21 @@ export function PostCard( { post }: Props) {
                   <Image
                   shape="circular"
                   fit="cover"
-                  src={post.author.avatar}
+                  src={post.author.imageUrl}
                   alt={`${post.author.name} avatar`}
                   />
                 }
                 name = {post.author.name}
-                secondaryText= {post.createdDate.toLocaleTimeString()}
+                secondaryText= {post.createDate.toLocaleTimeString()}
                 textAlignment="center"
               />
-              <div className="flex content-center">
-                <Chat16Regular 
-                  className="mx-0.5"
-                />
+              <Tag>
                 <Text 
                   weight="semibold"
                 >
                   {post.subtopic ? `${post.topic.name} #${post.subtopic.name}` : post.topic.name}
                 </Text>
-              </div>
+              </Tag>
           </div>
         }
       />
@@ -51,11 +64,18 @@ export function PostCard( { post }: Props) {
       <CardFooter
         className="flex justify-between content-center"
       >
-        <Text className="justify-self-start">Observed by x people.</Text>
+        <Text className="justify-self-start">Observed by {post.subscriberIds.length} people.</Text>
         <div className="justify-self-end flex content-center justify-between w-1/5">
-          <Button icon = {<Share16Regular />} />
-          <Button icon = {<StarAdd16Regular />} />
-          <Button icon = {<Comment16Regular />} />
+          <Button 
+            icon={isSubscribed(post) ? <Star16Filled /> : <StarAdd16Regular />}
+            onClick={() => toggleSubscribe(post)}
+          />
+          <Button 
+            icon={<Share16Regular />} 
+          />
+          <Button 
+            icon={<Comment16Regular />} 
+          />
         </div>
       </CardFooter>
     </Card>
