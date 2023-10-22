@@ -17,7 +17,7 @@ public class SubscriptionController {
     @Autowired
     private PersonService personService;
 
-    @PatchMapping(path = "/{subscriberId}", params = "postId")
+    @PostMapping(path = "/{subscriberId}", params = "postId")
     @CrossOrigin("*")
     public ResponseEntity<String> subscribeToPost(
         @RequestParam("postId") Long postId,
@@ -28,7 +28,7 @@ public class SubscriptionController {
         return ResponseEntity.ok("Subscription to Post added.");
     }
 
-    @PatchMapping(path = "/{subscriberId}", params = "subtopicId")
+    @PostMapping(path = "/{subscriberId}", params = "subtopicId")
     @CrossOrigin("*")
     public ResponseEntity<String> subscribeToSubtopic(
         @RequestParam("subtopicId") Long subtopicId,
@@ -39,7 +39,7 @@ public class SubscriptionController {
         return ResponseEntity.ok("Subscription to subtopic added.");
     }
 
-    @PatchMapping(path = "/{subscriberId}", params = "topicId")
+    @PostMapping(path = "/{subscriberId}", params = "topicId")
     @CrossOrigin("*")
     public ResponseEntity<String> subscribeToTopic(
         @RequestParam("topicId") Long topicId,
@@ -50,7 +50,7 @@ public class SubscriptionController {
         return ResponseEntity.ok("Subscription to Topic added.");
     }
 
-    @PostMapping(path = "/{subscriberId}", params = "postId")
+    @DeleteMapping(path = "/{subscriberId}", params = "postId")
     @CrossOrigin("*")
     public ResponseEntity<String> unsubscribeFromPost(
         @RequestParam("postId") Long postId,
@@ -62,7 +62,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(path = "/{subscriberId}", params = "subtopicId")
+    @DeleteMapping(path = "/{subscriberId}", params = "subtopicId")
     @CrossOrigin("*")
     public ResponseEntity<String> unsubscribeFromSubtopic(
         @RequestParam("subtopicId") Long subtopicId,
@@ -74,7 +74,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(path = "/{subscriberId}", params = "topicId")
+    @DeleteMapping(path = "/{subscriberId}", params = "topicId")
     @CrossOrigin("*")
     public ResponseEntity<String> unsubscribeFromTopic(
         @RequestParam("topicId") Long subtopicId,
