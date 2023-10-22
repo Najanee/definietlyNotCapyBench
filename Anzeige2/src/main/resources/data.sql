@@ -1,22 +1,24 @@
-INSERT INTO topic(id, name) VALUES(1, 'Sprzedam');
-INSERT INTO topic(id, name) VALUES(2, 'Języki');
-INSERT INTO topic(id, name) VALUES(3, 'Po godzinach');
-INSERT INTO topic(id, name) VALUES(4, 'Zainteresowania i projekty');
-INSERT INTO topic(id, name) VALUES(5, 'Wymiana');
+INSERT INTO topic(id, name) VALUES(1, 'Trade');
+INSERT INTO topic(id, name) VALUES(2, 'Learn a language');
+INSERT INTO topic(id, name) VALUES(3, 'After hours');
+INSERT INTO topic(id, name) VALUES(4, 'Hobbies and projects');
+INSERT INTO topic(id, name) VALUES(5, 'Exchange');
 
-INSERT INTO subtopic(id, topic_id, name) VALUES(1, 1, 'Motoryzacja');
-INSERT INTO subtopic(id, topic_id, name) VALUES(2, 1, 'Drobne');
-INSERT INTO subtopic(id, topic_id, name) VALUES(3, 2, 'Konwersacje poziom podstawowy');
-INSERT INTO subtopic(id, topic_id, name) VALUES(4, 2, 'Niemieckie filmy');
+INSERT INTO subtopic(id, topic_id, name) VALUES(1, 1, 'Motors');
+INSERT INTO subtopic(id, topic_id, name) VALUES(2, 1, 'Second hand');
+INSERT INTO subtopic(id, topic_id, name) VALUES(3, 2, 'Entry level german course');
+INSERT INTO subtopic(id, topic_id, name) VALUES(4, 2, 'Watch american blockbusters with german dubbing');
 INSERT INTO subtopic(id, topic_id, name) VALUES(5, 3, 'City Break');
-INSERT INTO subtopic(id, topic_id, name) VALUES(6, 3, 'Nauka');
-INSERT INTO subtopic(id, topic_id, name) VALUES(7, 3, 'Podróże');
+INSERT INTO subtopic(id, topic_id, name) VALUES(6, 3, 'Learning');
+INSERT INTO subtopic(id, topic_id, name) VALUES(7, 3, 'Travel');
+
 -- subtopiki Wymiana
-INSERT INTO subtopic(id, topic_id, name) VALUES(8, 5, 'Elektronika');
-INSERT INTO subtopic(id, topic_id, name) VALUES(9, 5, 'Programowanie');
-INSERT INTO subtopic(id, topic_id, name) VALUES(10, 5, 'Książki');
-INSERT INTO subtopic(id, topic_id, name) VALUES(11, 5, 'Sztuka');
-INSERT INTO subtopic(id, topic_id, name) VALUES(12, 5, 'Inne');
+INSERT INTO subtopic(id, topic_id, name) VALUES(8, 5, 'Electronics');
+INSERT INTO subtopic(id, topic_id, name) VALUES(9, 5, 'Software');
+INSERT INTO subtopic(id, topic_id, name) VALUES(10, 5, 'Books');
+INSERT INTO subtopic(id, topic_id, name) VALUES(11, 5, 'Art');
+INSERT INTO subtopic(id, topic_id, name) VALUES(12, 5, 'Other');
+
 -- subtopiki Sprzedaż
 INSERT INTO subtopic(id, topic_id, name) VALUES(13, 1, 'Elektronika');
 INSERT INTO subtopic(id, topic_id, name) VALUES(14, 1, 'Książki');
@@ -25,6 +27,7 @@ INSERT INTO subtopic(id, topic_id, name) VALUES(16, 1, 'AGD & RTV');
 INSERT INTO subtopic(id, topic_id, name) VALUES(17, 1, 'Inne');
 INSERT INTO subtopic(id, topic_id, name) VALUES(18, 1, 'Gry');
 INSERT INTO subtopic(id, topic_id, name) VALUES(19, 1, 'Odzież');
+
 -- subtopiki Jezyki
 INSERT INTO subtopic(id, topic_id, name) VALUES(20, 2, 'Polski');
 INSERT INTO subtopic(id, topic_id, name) VALUES(21, 2, 'Niemiecki');
@@ -33,6 +36,7 @@ INSERT INTO subtopic(id, topic_id, name) VALUES(23, 2, 'Hiszpański');
 INSERT INTO subtopic(id, topic_id, name) VALUES(24, 2, 'Rosyjski');
 INSERT INTO subtopic(id, topic_id, name) VALUES(25, 2, 'Francuski');
 INSERT INTO subtopic(id, topic_id, name) VALUES(26, 2, 'Inne');
+
 -- subtopiki po godzinach
 INSERT INTO subtopic(id, topic_id, name) VALUES(27, 3, 'Planszówki');
 INSERT INTO subtopic(id, topic_id, name) VALUES(28, 3, 'Luźne');
@@ -40,6 +44,7 @@ INSERT INTO subtopic(id, topic_id, name) VALUES(29, 3, 'Film');
 INSERT INTO subtopic(id, topic_id, name) VALUES(30, 3, 'Wieczór');
 INSERT INTO subtopic(id, topic_id, name) VALUES(31, 3, 'Muzyka');
 INSERT INTO subtopic(id, topic_id, name) VALUES(32, 3, 'Inne');
+
 -- subtopiki projekty
 INSERT INTO subtopic(id, topic_id, name) VALUES(33, 3, 'Java');
 INSERT INTO subtopic(id, topic_id, name) VALUES(34, 3, 'Java Script');
@@ -49,16 +54,15 @@ INSERT INTO subtopic(id, topic_id, name) VALUES(37, 3, 'Tech-Talk');
 INSERT INTO subtopic(id, topic_id, name) VALUES(38, 3, 'Algorytmy');
 INSERT INTO subtopic(id, topic_id, name) VALUES(39, 3, 'Inne');
 
-INSERT INTO person(id, image_url, name) VALUES(1, 'url1', 'Grzegorz Kapibarowski');
-INSERT INTO person(id, image_url, name) VALUES(2, 'url2', 'Franek Brzęczyszczykiewicz');
-INSERT INTO person(id, image_url, name) VALUES(3, 'url3', 'Maja Frontowa');
-INSERT INTO person(id, image_url, name) VALUES(4, 'url4', 'Piotr Nowak');
-INSERT INTO person(id, image_url, name) VALUES(5, 'url5', 'Magdalena Wojciechowska');
-INSERT INTO person(id, image_url, name) VALUES(6, 'url6', 'Michał Jankowski');
-INSERT INTO person(id, image_url, name) VALUES(7, 'url7', 'Karolina Kaczmarek');
-INSERT INTO person(id, image_url, name) VALUES(8, 'url8', 'Adam Szymański');
-INSERT INTO person(id, image_url, name) VALUES(9, 'url9', 'Ewa Lewandowska');
-INSERT INTO person(id, image_url, name) VALUES(10, 'url10', 'Karol Wojtyła');
+INSERT INTO person(id, image_url, name) VALUES(1, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/kapibara1.png?raw=true', 'Grzegorz Kapibarowski');
+INSERT INTO person(id, image_url, name) VALUES(2, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(2).png?raw=true', 'Franek Brzęczyszczykiewicz');
+INSERT INTO person(id, image_url, name) VALUES(3, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(2).png?raw=true', 'Maja Frontowa');
+INSERT INTO person(id, image_url, name) VALUES(4, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(4).png?raw=true', 'Piotr Nowak');
+INSERT INTO person(id, image_url, name) VALUES(5, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(7).png?raw=true', 'Magdalena Wojciechowska');
+INSERT INTO person(id, image_url, name) VALUES(6, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(2).png?raw=true', 'Michał Jankowski');
+INSERT INTO person(id, image_url, name) VALUES(7, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(5).png?raw=true', 'Karolina Kaczmarek');
+INSERT INTO person(id, image_url, name) VALUES(8, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(7).png?raw=true', 'Adam Szymański');
+INSERT INTO person(id, image_url, name) VALUES(9, 'https://github.com/MayPaw/definietlyNotCapyBench/blob/frontend-development/Anzeige%202.0/images/MicrosoftTeams-image%20(6).png?raw=true', 'Ewa Lewandowska');
 
 INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title) VALUES
 (-1, 1, CURRENT_TIMESTAMP, 1, 1, 'topic 1, subtopic 1', 'Opel rocznik 93'),
@@ -68,6 +72,8 @@ INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, ti
 (-5, 1, CURRENT_TIMESTAMP, 3, 5, 'topic 3, subtopic 5', 'Wypad do Sosnowca - weekend pełen wrażeń'),
 (-6, 2, CURRENT_TIMESTAMP, 3, null, 'topic 3, nie ma subtopic', 'W jakim języku piszecie po godzinach? Ankieta'),
 (-7, 2, CURRENT_TIMESTAMP, 3, null, 'topic 3, nie ma subtopic', 'Interfejsy i kiedy warto ich używać? Fajny wykład online.');
+
+
 -- Wymiana Sprzętu
 INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title)
 VALUES (-8, 3, CURRENT_TIMESTAMP, 5, 8, 'Chcę wymienić mój stary aparat na porządny laptop. Napisz do mnie po szczegóły.', 'Wymiana Aparatu na Laptopa');
@@ -90,7 +96,7 @@ VALUES (-12, 3, CURRENT_TIMESTAMP, 5, 11, 'Tworzę sztukę cyfrową i chciałbym
 
 -- Wymiana Nauki Języków
 INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title)
-VALUES (-13, 2, CURRENT_TIMESTAMP, 5, NULL, 'Oferuję lekcje hiszpańskiego w zamian za lekcje francuskiego. Poprawmy razem nasze umiejętności językowe!', 'Wymiana Językowa');
+VALUES (-13, 2, CURRENT_TIMESTAMP, 5, 12, 'Oferuję lekcje hiszpańskiego w zamian za lekcje francuskiego. Poprawmy razem nasze umiejętności językowe!', 'Wymiana Językowa');
 
 -- Elektronika za Meble
 INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title)
@@ -214,7 +220,7 @@ VALUES (-43, 9, CURRENT_TIMESTAMP, 3, 27, 'Organizujemy turniej gier planszowych
 
 -- Wieczór Muzyczny w Ogrodzie
 INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title)
-VALUES (-44, 10, CURRENT_TIMESTAMP, 3, 31, 'Zapraszam na wieczór muzyczny w moim ogrodzie. Akustyka, grill, i dobra muzyka. Początek o 18:00. Przynosicie swoje leżaki!', 'Muzyczny Wieczór w Ogrodzie');
+VALUES (-44, 9, CURRENT_TIMESTAMP, 3, 31, 'Zapraszam na wieczór muzyczny w moim ogrodzie. Akustyka, grill, i dobra muzyka. Początek o 18:00. Przynosicie swoje leżaki!', 'Muzyczny Wieczór w Ogrodzie');
 
 -- Hackathon Weekend
 INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title)
@@ -254,7 +260,7 @@ VALUES (-53, 9, '2023-12-12', 4, 39, 'Warsztat na temat rozwoju projektów w met
 
 -- Open Source Contribution Day
 INSERT INTO post(id, author_id, created_date, topic_id, subtopic_id, content, title)
-VALUES (-54, 10, '2023-12-13', 4, 39, 'Dzień kontrybucji do projektów open source. Wybieramy projekty, rozwiązujemy issues, uczymy się razem. Spotykamy się w coworkingu.', 'Dzień Kontrybucji do Open Source');
+VALUES (-54, 8, '2023-12-13', 4, 39, 'Dzień kontrybucji do projektów open source. Wybieramy projekty, rozwiązujemy issues, uczymy się razem. Spotykamy się w coworkingu.', 'Dzień Kontrybucji do Open Source');
 
 INSERT INTO person_to_post(person_id, post_id) VALUES
 (1, -1),
@@ -287,7 +293,4 @@ INSERT INTO person_to_topic(person_id, topic_id) VALUES
 (3, 3),
 (5, 4),
 (6, 5),
-(8, 4),
-(10, 3);
-
--- person id 2 should see posts: 1, 2, 3, 4 (once), 5, 7
+(8, 4);
