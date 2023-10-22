@@ -1,52 +1,69 @@
 package com.capgemini.capybench.Anzeige2.controllers;
 
-import com.capgemini.capybench.Anzeige2.dto.NewPostDto;
-import com.capgemini.capybench.Anzeige2.dto.PersonDto;
-import com.capgemini.capybench.Anzeige2.dto.PostDto;
+import com.capgemini.capybench.Anzeige2.dto.*;
 import com.capgemini.capybench.Anzeige2.entity.Person;
 import com.capgemini.capybench.Anzeige2.entity.Post;
+import com.capgemini.capybench.Anzeige2.entity.Subtopic;
+import com.capgemini.capybench.Anzeige2.entity.Topic;
 import com.capgemini.capybench.Anzeige2.repository.PersonRepository;
 import com.capgemini.capybench.Anzeige2.repository.PostRepository;
-import com.capgemini.capybench.Anzeige2.service.interfaces.PostService;
+import com.capgemini.capybench.Anzeige2.repository.SubtopicRepository;
+import com.capgemini.capybench.Anzeige2.repository.TopicRepository;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
-import static java.util.stream.Collectors.toList;
 
-@RestController
-@RequestMapping("/posts")
-@CrossOrigin("*")
 @Slf4j
+@RestController
+@CrossOrigin("*")
+@RequiredArgsConstructor
 public class PostController {
-
-    @Autowired
-    private PostService postService;
     @Autowired
     private PostRepository postRepository;
     @Autowired
     private PersonRepository personRepository;
-
-
     @Autowired
-    public PostController (PostService postService){
-        this.postService = postService;
-    }
+    private TopicRepository topicRepository;
+    @Autowired
+    private SubtopicRepository subtopicRepository;
+
     @PostMapping
     @CrossOrigin("*")
+//    @RequestMapping("/posts")
     public ResponseEntity<String> addPost(@RequestBody NewPostDto postDto){
 
         return ResponseEntity.ok("Post successfully added");
     }
+
     @GetMapping
     @CrossOrigin("*")
-    public ResponseEntity<List<PostDto>> getPostsByUser(
+    @RequestMapping("/topics")
+    public ResponseEntity<List<TopicDto>> getAllTopics() {
+
+        final var subtopicDtos = subtopicRepository.findAll()
+                                                   .stream()
+                                                   .map(this::map)
+                                                   .collect(toSet());
+
+        return topicRepository.findAll()
+                              .stream()
+                              .map(topic -> map(topic, subtopicDtos))
+                              .collect(collectingAndThen(
+                                  toList(),
+                                  ResponseEntity::ok));
+    }
+
+    @GetMapping
+    @CrossOrigin("*")
+    @RequestMapping("/posts")
+    public ResponseEntity<List<PostDto>> getPostsBySubscriber(
         @RequestParam("subscriberId") Long subscriberId){
 
         final var people = personRepository.findAll();
@@ -67,6 +84,7 @@ public class PostController {
 
     private Map<Person, List<Post>> getSubscribersToFollowedPosts(
        @NonNull final List<Person> people) {
+
         Map<Person, List<Post>> personToFollowedPosts = new HashMap<>();
 
         people.forEach(person -> {
@@ -111,7 +129,8 @@ public class PostController {
     private PostDto map(
         @NonNull final Post post,
         @NonNull final List<Person> subscribers) {
-        final PersonDto author = PersonDto
+
+        final var author = PersonDto
             .builder()
             .id(post.getAuthor().getId())
             .name(post.getAuthor().getName())
@@ -134,6 +153,40 @@ public class PostController {
             .subscriberIds(subscriberIds)
             .topicId(post.getTopic().getId())
             .subtopicId(post.getSubtopic() != null ? post.getSubtopic().getId() : null)
+            .build();
+    }
+
+    private TopicDto map(
+        @NonNull final Topic topic,
+        @NonNull final Set<SubtopicDto> subtopicDtos) {
+
+        final var topicId = topic.getId();
+        final var allSubscriberIdsOfTopic = topicRepository.findAllSubscriberIdsOfTopic(topicId);
+
+        return TopicDto
+            .builder()
+            .id(topicId)
+            .name(topic.getName())
+            .subtopics(subtopicDtos)
+            .subscriberIds(allSubscriberIdsOfTopic)
+            .expirationDate(topic.getExpirationDate())
+            .build();
+    }
+
+    private SubtopicDto map(
+        @NonNull final Subtopic subtopic) {
+
+        final var subtopicId = subtopic.getId();
+        final var allPostIdsInSubtopic = subtopicRepository.findAllPostIdsInSubtopic(subtopicId);
+        final var allSubscriberIdsOfSubtopic = subtopicRepository.findAllSubscriberIdsOfSubtopic(subtopicId);
+
+        return SubtopicDto
+            .builder()
+            .id(subtopicId)
+            .name(subtopic.getName())
+            .postsIds(allPostIdsInSubtopic)
+            .subscriberIds(allSubscriberIdsOfSubtopic)
+            .expirationDate(subtopic.getExpirationDate())
             .build();
     }
 }
