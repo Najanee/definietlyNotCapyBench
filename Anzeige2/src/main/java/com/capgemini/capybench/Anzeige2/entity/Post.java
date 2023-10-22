@@ -41,10 +41,11 @@ public class Post {
     @ManyToOne
     private Person author;
 
+    //subscribers
     @ManyToMany(
             mappedBy = "subscribedPosts",
             fetch = FetchType.LAZY)
-    private Set<Person> people; //subscribers
+    private Set<Person> people;
 
     @PrePersist
     private void prePersist() {

@@ -31,21 +31,6 @@ public class Subtopic {
     private Set<Person> people;
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Subtopic subtopic = (Subtopic) o;
-        return Objects.equals(id, subtopic.id) && Objects.equals(name,
-                                                                 subtopic.name) && Objects.equals(
-                expirationDate,
-                subtopic.expirationDate) && Objects.equals(topic, subtopic.topic);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id, name, expirationDate, topic);
     }
@@ -56,4 +41,18 @@ public class Subtopic {
             fetch = FetchType.LAZY)
     private Set<Post> posts;
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Subtopic subtopic = (Subtopic) o;
+        return Objects.equals(id, subtopic.id) && Objects.equals(name,
+                subtopic.name) && Objects.equals(
+                expirationDate,
+                subtopic.expirationDate) && Objects.equals(topic, subtopic.topic);
+    }
 }

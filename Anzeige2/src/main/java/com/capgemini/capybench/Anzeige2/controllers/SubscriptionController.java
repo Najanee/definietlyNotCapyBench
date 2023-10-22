@@ -48,30 +48,30 @@ public class SubscriptionController {
         return ResponseEntity.ok("Subscription to Topic added.");
     }
 
-    @DeleteMapping(path = "/{subscriberId}", params = "postId")
+    @PostMapping(path = "/{subscriberId}", params = "postId")
     @CrossOrigin("*")
     public ResponseEntity<String> unsubscribeFromPost(
         @RequestParam("postId") Long postId,
         @PathVariable("subscriberId") Long subscriberId) {
-
+        personService.unsubscribeFromPost(postId, subscriberId);
         return ResponseEntity.ok("Subscription to Post removed.");
     }
 
-    @DeleteMapping(path = "/{subscriberId}", params = "subtopicId")
+    @PostMapping(path = "/{subscriberId}", params = "subtopicId")
     @CrossOrigin("*")
     public ResponseEntity<String> unsubscribeFromSubtopic(
         @RequestParam("subtopicId") Long subtopicId,
         @PathVariable("subscriberId") Long subscriberId) {
-
+        personService.unsubscribeFromSubtopic(subtopicId, subscriberId);
         return ResponseEntity.ok("Subscription to Subtopic removed.");
     }
 
-    @DeleteMapping(path = "/{subscriberId}", params = "topicId")
+    @PostMapping(path = "/{subscriberId}", params = "topicId")
     @CrossOrigin("*")
     public ResponseEntity<String> unsubscribeFromTopic(
         @RequestParam("topicId") Long subtopicId,
         @PathVariable("subscriberId") Long subscriberId) {
-
+        personService.unsubscribeFromTopic(subtopicId, subscriberId);
         return ResponseEntity.ok("Subscription to Topic removed.");
     }
 }
