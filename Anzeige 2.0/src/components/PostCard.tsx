@@ -13,7 +13,7 @@ type Props = {
     toggleSubscribe: (resource: Topic | Subtopic | Post, resourceType: string) => void;
 }
 
-export function PostCard( { userId, post, isSubscribed, subscribedPosts, setSubscribedPosts, toggleSubscribe }: Props) {
+export function PostCard( { post, isSubscribed, toggleSubscribe }: Props) {
 
     return (
     <Card

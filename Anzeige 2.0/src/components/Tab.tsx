@@ -16,6 +16,7 @@ export function Tab() {
 
   const [topics, setTopics] = useState<Topic[]>([]);
   const [isPostCreatorDisplayed, setIsPostCreatorDisplayed] = useState<boolean>(false)
+  const [updatedDate, setUpdatedDate] = useState<Date>(new Date(Date.now()))
 
   const [subscribedTopics, setSubscribedTopics] 
     : [Topic[], (value: Topic[]) => void] = useState<Topic[]>([]);
@@ -74,6 +75,7 @@ export function Tab() {
       }
       subscribeToResource(USER_ID, resourcePath, resource.id, resourceType);
     }
+    setUpdatedDate(new Date(Date.now()))
   } 
     
   useEffect(() => {
@@ -83,7 +85,7 @@ export function Tab() {
       setSubscribedSubtopics(data.subscribedSubtopics)
       setSubscribedPosts(data.posts);
     })
-  }, [])
+  }, [updatedDate])
 
   return (
     <div className={`${getTheme()} max-w-screen-lg w-4/5 h-full m-auto py-10`}>
@@ -108,6 +110,7 @@ export function Tab() {
               userId={USER_ID} 
               isDisplayed={isPostCreatorDisplayed} 
               setIsDisplayed={setIsPostCreatorDisplayed}
+              setUpdatedDate={setUpdatedDate}
             />
           </div>
         </div>

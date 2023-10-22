@@ -2,19 +2,19 @@ import { useState } from "react";
 import { Button, Combobox, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, DialogTrigger, Input, Label, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Option, Skeleton, SkeletonItem, Textarea, Toolbar, ToolbarButton, ToolbarDivider } from "@fluentui/react-components";
 import { Topic } from "../domain/Topic";
 import { AddSquareMultiple16Regular, CommentEdit24Regular, FontDecrease24Regular, FontIncrease24Regular, MoreHorizontal24Filled, TextFont24Regular } from "@fluentui/react-icons";
-import { Post } from "../domain/Post";
 import { NewPost } from "./dto/NewPost";
-import { getData, postNewPost } from "../services/WebClient";
+import { postNewPost } from "../services/WebClient";
 
 type Props = {
     topics: Topic[];
     userId: number;
     isDisplayed: boolean;
     setIsDisplayed: (value: boolean) => void;
+    setUpdatedDate: (value: Date) => void;
     
 }
 
-export function PostCreator({ topics, userId, setIsDisplayed, isDisplayed } : Props) {
+export function PostCreator({ topics, userId, setIsDisplayed, isDisplayed, setUpdatedDate } : Props) {
     const [selectedTopicName, setSelectedTopicName] = useState<string>("");
     const [selectedSubtopicName, setSelectedSubtopicName] = useState<string>("");
     const [title, setTitle] = useState<string>("");
@@ -30,11 +30,12 @@ export function PostCreator({ topics, userId, setIsDisplayed, isDisplayed } : Pr
         const selectedSubtopic = selectedTopic!.subtopics.find(subtopic => subtopic.name === selectedSubtopicName);
 
         postNewPost(new NewPost(title, content, userId, selectedTopic!.id, selectedSubtopic?.id))
-            .then(response => getData(userId));
+            .then(response => setUpdatedDate(new Date(Date.now())))
+            .then(response => setIsDisplayed(false));
     }
 
     return (
-        <Dialog open={isDisplayed} modalType="non-modal" inertTrapFocus={true}>
+        <Dialog modalType="non-modal" inertTrapFocus={true}>
             <DialogTrigger action="open">
                 <Button
                     icon= {<AddSquareMultiple16Regular />}

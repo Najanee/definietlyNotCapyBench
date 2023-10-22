@@ -89,7 +89,7 @@ const getData = async (userId: number) => {
   const subscribedSubtopics = topics.flatMap(topic => topic.subtopics)
     .filter(subtopic => subtopic.subscriberIds?.includes(userId));
   const subscribedTopics = topics.filter(topic => topic.subscriberIds?.includes(userId))
-  const postDtos: PostDto[] = await getPostsDtos(userId);
+      const postDtos: PostDto[] = await getPostsDtos(userId);
   const posts = postDtos.map(postDto => 
     new PostDto(
       postDto.id, 
