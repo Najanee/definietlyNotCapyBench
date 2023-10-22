@@ -17,7 +17,7 @@ type Props = {
 
 export function TopicRow( { topic, isSubscribed, subscribedTopics, setSubscribedTopics, subscribedSubtopics, setSubscribedSubtopics, toggleSubscribe } : Props ) {
     const [isExpanded, setIsExpanded] = useState<Boolean>(false);
-
+    
     const toggleIsExpanded = () => {
         setIsExpanded(prev => !prev)
     }
@@ -48,17 +48,18 @@ export function TopicRow( { topic, isSubscribed, subscribedTopics, setSubscribed
             
             {
                 isExpanded && topic.subtopics.map(subtopic => 
-                    <p className="px-4 py-1.5 text-ellipsis text-left leading-5 w-full">
-                        {subtopic.name}
+                    <div className="flex py-1.5 text-ellipsis text-left leading-5">
+                        <p className="px-4">{subtopic.name}</p>
                         <Divider vertical />
                         <Button
+                            className="px-4"
                             size="small"
                             appearance="transparent"
                             onClick={() => toggleSubscribe(subtopic, "subtopic")}
                         >
                             { !isSubscribed(subtopic) ? "Subscribe" : "Unsubscribe" }
                         </Button>
-                    </p>
+                    </div>
                 )
             }
         </>

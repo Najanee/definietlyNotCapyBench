@@ -1,10 +1,10 @@
+import { useRef, useState } from "react"
 import { Topic } from "../domain/Topic";
 import { Input } from "@fluentui/react-components";
 import { TopicRow } from "./TopicRow";
 import { Search16Regular } from "@fluentui/react-icons";
 import { Post } from "../domain/Post";
 import { Subtopic } from "../domain/Subtopic";
-import { randomUUID } from "crypto";
 
 type Props = {
     topics: Topic[];
@@ -18,15 +18,23 @@ type Props = {
 }
 
 export function TopicBar({ topics, isSubscribed, subscribedTopics, setSubscribedTopics, subscribedSubtopics, setSubscribedSubtopics, toggleSubscribe } : Props) {
+    const [topicsAndSubtopics, setTopicsAndSubtopics] = useState<(Topic | Subtopic)[]>([])
+    const searchForTopics = (input: string) : (Topic | Subtopic)[] => {
+        const topicsAndSubtopics : (Topic | Subtopic)[] = [];
+        topicsAndSubtopics.concat(topics.flatMap(topic => topic.subtopics)).concat(topics);
+
+        return topicsAndSubtopics.filter(topic => topic?.name.toLowerCase().includes(input?.toLowerCase()));
+    }
 
     return (
-        <div className="w-300 px-10 sticky top-10 left-0">
+        <div className="px-10 sticky top-10 left-0">
             <Input
                 type="text"
                 placeholder="Search topics"
                 contentBefore={<Search16Regular/>}
                 size="medium"
                 className="w-full mb-4"
+                onChange={(e) => searchForTopics(e.currentTarget.value)}
             />
             { 
                 topics.map(topic => 

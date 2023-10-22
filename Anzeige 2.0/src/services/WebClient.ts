@@ -1,3 +1,4 @@
+import { NewPost } from "../components/dto/NewPost";
 import { PostDto } from "../components/dto/PostDto";
 import { Topic } from "../domain/Topic";
 
@@ -53,6 +54,27 @@ async function unsubscribeFromResource(userId: number, resourcePath: string, res
   }
 }
 
+async function postNewPost(newPost: NewPost) {
+  try {
+    const response = await fetch(`http://localhost:8080/posts`, {
+      method: 'POST',
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPost)
+    });
+
+      response.status === 200 ? console.log('Post submitted.') : console.log('Beee...');
+
+  } catch (error) {
+    console.log(error);
+    console.log(`Failed to post New Post.`);
+
+    return new Promise((resolve, reject) => undefined);
+  }
+}
+
 const requestMethod = (userId: number, resourcePath: string, resourceId: number, resourceType: string, methodType: string)  => {
   return fetch(`http://localhost:8080/subscription/${resourcePath}/${userId}?${resourceType}Id=${resourceId}`, {
     method: methodType,
@@ -84,4 +106,4 @@ const getData = async (userId: number) => {
   return {topics, subscribedTopics, subscribedSubtopics, posts};
 }
 
-export { getTopics, getPostsDtos, subscribeToResource, unsubscribeFromResource, getData}
+export { getTopics, getPostsDtos, subscribeToResource, unsubscribeFromResource, postNewPost, getData}

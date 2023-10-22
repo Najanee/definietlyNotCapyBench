@@ -1,14 +1,13 @@
 import { useContext, useState, useEffect } from "react";
 import { TeamsFxContext } from "./Context";
-import { Button, Divider } from "@fluentui/react-components";
-import { getData, getTopics, subscribeToResource, unsubscribeFromResource } from "../services/WebClient";
-import { AddSquareMultiple16Regular } from "@fluentui/react-icons";
+import { Divider } from "@fluentui/react-components";
+import { getData, subscribeToResource, unsubscribeFromResource } from "../services/WebClient";
 import { PostCard } from "./PostCard";
 import { TopicBar } from "./TopicBar";
 import { Topic } from "../domain/Topic";
 import { Post } from "../domain/Post";
 import { Subtopic } from "../domain/Subtopic";
-import { resolvePath } from "react-router";
+import { PostCreator } from "./PostCreator";
 
 export function Tab() {
   const { themeString } = useContext(TeamsFxContext);
@@ -16,6 +15,7 @@ export function Tab() {
   const USER_ID = 2;
 
   const [topics, setTopics] = useState<Topic[]>([]);
+  const [isPostCreatorDisplayed, setIsPostCreatorDisplayed] = useState<boolean>(false)
 
   const [subscribedTopics, setSubscribedTopics] 
     : [Topic[], (value: Topic[]) => void] = useState<Topic[]>([]);
@@ -103,15 +103,12 @@ export function Tab() {
           <div className="blur-2xl w-full h-48 fixed bottom-0 left-0 bg-gray-400/20">
           </div>
           <div className="sticky bottom-5 left-0 mx-10 w-full h-10 bg-inherit">
-            <Button
-              icon= {<AddSquareMultiple16Regular />}
-              size="medium"
-              appearance="primary"
-              iconPosition="before"
-              onClick={getTopics}
-            >
-              New post
-            </Button>
+            <PostCreator 
+              topics={topics} 
+              userId={USER_ID} 
+              isDisplayed={isPostCreatorDisplayed} 
+              setIsDisplayed={setIsPostCreatorDisplayed}
+            />
           </div>
         </div>
         <Divider vertical />
