@@ -47,14 +47,9 @@ public class PostController {
     @RequestMapping("/topics")
     public ResponseEntity<List<TopicDto>> getAllTopics() {
 
-        final var subtopicDtos = subtopicRepository.findAll()
-                                                   .stream()
-                                                   .map(this::map)
-                                                   .collect(toSet());
-
         return topicRepository.findAll()
                               .stream()
-                              .map(topic -> map(topic, subtopicDtos))
+                              .map(this::map)
                               .collect(collectingAndThen(
                                   toList(),
                                   ResponseEntity::ok));
@@ -157,18 +152,29 @@ public class PostController {
     }
 
     private TopicDto map(
-        @NonNull final Topic topic,
-        @NonNull final Set<SubtopicDto> subtopicDtos) {
+        @NonNull final Topic topic) {
 
         final var topicId = topic.getId();
-        final var allSubscriberIdsOfTopic = topicRepository.findAllSubscriberIdsOfTopic(topicId);
+        final var allPosts = topicRepository.findAllPostIdsInTopic(topicId)
+                                            .stream()
+                                            .filter(Objects::nonNull)
+                                            .collect(toSet());
+        final var directSubscribers = topicRepository.findDirectSubscriberIdsOfTopic(topicId)
+                                                     .stream()
+                                                     .filter(Objects::nonNull)
+                                                     .collect(toSet());
+        final var subtopicDtos = subtopicRepository.findSubtopicsInTopic(topicId)
+                                                   .stream()
+                                                   .map(this::map)
+                                                   .collect(toSet());
 
         return TopicDto
             .builder()
             .id(topicId)
             .name(topic.getName())
             .subtopics(subtopicDtos)
-            .subscriberIds(allSubscriberIdsOfTopic)
+            .postIds(allPosts)
+            .subscriberIds(directSubscribers)
             .expirationDate(topic.getExpirationDate())
             .build();
     }
@@ -177,15 +183,21 @@ public class PostController {
         @NonNull final Subtopic subtopic) {
 
         final var subtopicId = subtopic.getId();
-        final var allPostIdsInSubtopic = subtopicRepository.findAllPostIdsInSubtopic(subtopicId);
-        final var allSubscriberIdsOfSubtopic = subtopicRepository.findAllSubscriberIdsOfSubtopic(subtopicId);
+        final var postIds = subtopicRepository.findPostIdsInSubtopic(subtopicId)
+                                              .stream()
+                                              .filter(Objects::nonNull)
+                                              .collect(toSet());
+        final var subscriberIds = subtopicRepository.findSubscriberIdsOfSubtopic(subtopicId)
+                                                    .stream()
+                                                    .filter(Objects::nonNull)
+                                                    .collect(toSet());
 
         return SubtopicDto
             .builder()
             .id(subtopicId)
             .name(subtopic.getName())
-            .postsIds(allPostIdsInSubtopic)
-            .subscriberIds(allSubscriberIdsOfSubtopic)
+            .postsIds(postIds)
+            .subscriberIds(subscriberIds)
             .expirationDate(subtopic.getExpirationDate())
             .build();
     }

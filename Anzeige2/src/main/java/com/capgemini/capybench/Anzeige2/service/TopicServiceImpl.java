@@ -69,8 +69,10 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public TopicDto getTopicById(final Long topicId) {
-        Topic topic = topicRepository.getTopicById(topicId);
+    public TopicDto findTopicById(final Long topicId) {
+        Topic topic = topicRepository
+            .findById(topicId)
+            .orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicId)));
         return topicMapper.toDto(topic);
     }
 

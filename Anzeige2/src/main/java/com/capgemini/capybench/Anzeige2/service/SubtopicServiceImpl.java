@@ -62,9 +62,9 @@ public class SubtopicServiceImpl implements SubtopicService {
                 .findById(topicId)
                 .orElseThrow(() -> new EntityNotFoundException(TOPIC_ENTITY_WITH_ID_S_NOT_FOUND.formatted(topicId)));
 
-        return subtopicRepository.findAllSubtopicsByTopicId(topicId).stream()
-                .map(subtopicMapper::toDto)
-                .toList();
+        return subtopicRepository.findSubtopicsInTopic(topicId).stream()
+                                 .map(subtopicMapper::toDto)
+                                 .toList();
     }
 
     @Override

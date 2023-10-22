@@ -39,7 +39,7 @@ public class TopicMapperImpl implements TopicMapper {
         if (entity == null) {
             throw new IllegalArgumentException(TOPIC_MUST_NOT_BE_NULL);
         }
-        List<Subtopic> subtopics = subtopicRepository.findAllSubtopicsByTopicId(entity.getId());
+        List<Subtopic> subtopics = subtopicRepository.findSubtopicsInTopic(entity.getId());
         Set<Long> subscribersIds = personRepository.findAllPeopleByTopicId(entity.getId()).stream()
                 .map(Person::getId)
                 .collect(Collectors.toSet());

@@ -10,6 +10,6 @@ public interface TopicService {
     void deleteTopic(Long id);
     Long updateTopic(TopicDto topic);
     List<TopicDto> getAllTopics();
-    TopicDto getTopicById(Long topicId);
+    TopicDto findTopicById(Long topicId);
     void addFollowedTopic(Long personId, Long topicId);
 }

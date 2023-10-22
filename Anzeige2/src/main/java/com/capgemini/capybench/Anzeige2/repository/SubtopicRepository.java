@@ -10,26 +10,24 @@ import java.util.Set;
 
 public interface SubtopicRepository extends JpaRepository<Subtopic, Long> {
 
-    @Query(
-            """
-                    SELECT s 
-                    FROM Subtopic s 
-                    WHERE s.topic.id = :topicId
-                    """
-    )
-    List<Subtopic> findAllSubtopicsByTopicId(@Param("topicId") Long topicId);
+    @Query("""
+            SELECT subtopic FROM Subtopic subtopic
+            LEFT JOIN subtopic.topic topic
+            WHERE topic.id = :topicId
+            """)
+    List<Subtopic> findSubtopicsInTopic(@Param("topicId") Long topicId);
 
     @Query("""
             SELECT person.id FROM Subtopic subtopic
             LEFT JOIN subtopic.people person
             WHERE subtopic.id = :subtopicId
             """)
-    Set<Long> findAllSubscriberIdsOfSubtopic(@Param("subtopicId") Long subtopicId);
+    Set<Long> findSubscriberIdsOfSubtopic(@Param("subtopicId") Long subtopicId);
 
     @Query("""
             SELECT post.id FROM Subtopic subtopic
             LEFT JOIN subtopic.posts post
             WHERE subtopic.id = :subtopicId
             """)
-    Set<Long> findAllPostIdsInSubtopic(@Param("subtopicId") Long subtopicId);
+    Set<Long> findPostIdsInSubtopic(@Param("subtopicId") Long subtopicId);
 }
