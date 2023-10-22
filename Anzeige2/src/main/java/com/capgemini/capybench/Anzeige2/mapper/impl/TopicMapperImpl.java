@@ -2,7 +2,6 @@ package com.capgemini.capybench.Anzeige2.mapper.impl;
 
 import com.capgemini.capybench.Anzeige2.dto.SubtopicDto;
 import com.capgemini.capybench.Anzeige2.dto.TopicDto;
-import com.capgemini.capybench.Anzeige2.entity.Person;
 import com.capgemini.capybench.Anzeige2.entity.Subtopic;
 import com.capgemini.capybench.Anzeige2.entity.Topic;
 import com.capgemini.capybench.Anzeige2.mapper.SubtopicMapper;
@@ -15,7 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,7 +38,7 @@ public class TopicMapperImpl implements TopicMapper {
         if (entity == null) {
             throw new IllegalArgumentException(TOPIC_MUST_NOT_BE_NULL);
         }
-        List<Subtopic> subtopics = subtopicRepository.findAllSubtopicsByTopicId(entity.getId());
+        List<Subtopic> subtopics = subtopicRepository.findSubtopicsInTopic(entity.getId());
         Set<Long> subscribersToTopic = entity.getPeople().stream().map(person -> person.getId()).collect(Collectors.toSet());
         Set<SubtopicDto> subtopicDtos = mapToSubtopicDtos(subtopics);
 //        Set<Long> subscribersIds = personRepository.findAllPeopleByTopicId(entity.getId()).stream()

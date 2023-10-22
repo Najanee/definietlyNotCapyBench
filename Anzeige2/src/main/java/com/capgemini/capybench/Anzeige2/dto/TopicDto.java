@@ -13,6 +13,7 @@ public class TopicDto {
     long id;
     @NonNull String name;
     Set<SubtopicDto> subtopics;
+    Set<Long> postIds;
     Set<Long> subscriberIds; // if contains ID of the requesting Person, then that Person is subscribing
     LocalDateTime expirationDate;
 }

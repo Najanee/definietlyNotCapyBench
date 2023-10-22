@@ -62,43 +62,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getAllFollowedPostsByPersonId(Long personId) {
-        Person person = findPersonById(personId);
-
-        List<Long> topicIds = person.getSubscribedTopics()
-                .stream()
-                .map(Topic::getId)
-                .toList();
-
-        List<Long> subtopicIds = person.getSubscribedSubtopics()
-                .stream()
-                .map(Subtopic::getId)
-                .toList();
-
-        List<Long> postIds = person.getSubscribedPosts()
-                .stream()
-                .map(Post::getId)
-                .toList();
-
-        return postRepository.findAllBy(topicIds, subtopicIds, postIds)
-                .stream()
-                .map(postMapper::toDto)
-                .toList();
-
-//        Set<Post> followedPosts = person.getSubscribedPosts();
-//        Set<Post> postsFromFollowedSubtopics = person.getSubscribedSubtopics().stream()
-//                .flatMap(subtopic -> subtopic.getPosts().stream())
-//                .collect(Collectors.toSet());
-//        Set<Post> postsFromFollowedTopics = person.getSubscribedTopics().stream()
-//                .flatMap(subtopic -> subtopic.getPosts().stream())
-//                .collect(Collectors.toSet());
-//        List<Post> allPosts = new ArrayList<>();
-//        allPosts.addAll(followedPosts);
-//        allPosts.addAll(postsFromFollowedSubtopics);
-//        allPosts.addAll(postsFromFollowedTopics);
-//        return allPosts.stream()
-//                .distinct()
-//                .map(postMapper::toDto)
-//                .toList();
+        return null;
     }
 
     private Person findPersonById(Long personId) {
