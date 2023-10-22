@@ -31,8 +31,9 @@ export function TopicRow( { topic, isSubscribed, subscribedTopics, setSubscribed
                 appearance="transparent"
                 onClick={toggleIsExpanded}
             >
-                {topic.name} |
+                {topic.name}
             </Button>
+            <Divider vertical />
             {
                  <Button
                     className="mt-1"
@@ -47,22 +48,19 @@ export function TopicRow( { topic, isSubscribed, subscribedTopics, setSubscribed
             
             {
                 isExpanded && topic.subtopics.map(subtopic => 
-                    <div className="px-4 py-1.5 text-ellipsis leading-5 w-full">
+                    <p className="px-4 py-1.5 text-ellipsis text-left leading-5 w-full">
                         {subtopic.name}
-                        <div>
-                            <Divider vertical />
-                            <Button
-                                size="small"
-                                appearance="transparent"
-                                onClick={() => toggleSubscribe(subtopic, "subtopic")}
-                            >
-                                { !isSubscribed(subtopic) ? "Subscribe" : "Unsubscribe" }
-                            </Button>
-                        <div/>
-                    </div>
+                        <Divider vertical />
+                        <Button
+                            size="small"
+                            appearance="transparent"
+                            onClick={() => toggleSubscribe(subtopic, "subtopic")}
+                        >
+                            { !isSubscribed(subtopic) ? "Subscribe" : "Unsubscribe" }
+                        </Button>
+                    </p>
                 )
             }
         </>
-        
     )
 }
