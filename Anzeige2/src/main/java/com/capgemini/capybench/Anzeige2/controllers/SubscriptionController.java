@@ -2,6 +2,7 @@ package com.capgemini.capybench.Anzeige2.controllers;
 
 import com.capgemini.capybench.Anzeige2.service.interfaces.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class SubscriptionController {
 
+    @Autowired
     private PersonService personService;
 
     @PatchMapping(path = "/{subscriberId}", params = "postId")
