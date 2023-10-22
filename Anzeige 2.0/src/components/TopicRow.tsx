@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ChevronDown16Regular, ChevronRight16Regular, Star16Regular, StarAdd16Regular } from "@fluentui/react-icons";
 import { Topic } from "../domain/Topic"
-import { Button, Tag } from "@fluentui/react-components";
+import { Button } from "@fluentui/react-components";
 import { Subtopic } from "../domain/Subtopic";
 import { Post } from "../domain/Post";
 

@@ -1,6 +1,6 @@
 import {Card, CardFooter, CardHeader, Persona, Image, Text, Divider, Button, Tag } from "@fluentui/react-components";
 import { Post } from "../domain/Post";
-import { Chat16Regular, Chat20Regular, Chat32Regular, Chat48Regular, Comment16Regular, Share16Regular, Star16Filled, Star16Regular, StarAdd16Regular } from "@fluentui/react-icons";
+import { Comment16Regular, Share16Regular, Star16Filled, StarAdd16Regular } from "@fluentui/react-icons";
 import { Topic } from "../domain/Topic";
 import { Subtopic } from "../domain/Subtopic";
 

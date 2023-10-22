@@ -11,7 +11,7 @@ import { HashRouter as Router, Navigate, Route, Routes } from "react-router-dom"
 import { useTeamsUserCredential } from "@microsoft/teamsfx-react";
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
-import Tab from "./Tab";
+import { Tab } from "./Tab";
 import { TeamsFxContext } from "./Context";
 import config from "./sample/lib/config";
 
@@ -27,6 +27,7 @@ export default function App() {
   return (
     <TeamsFxContext.Provider value={{ theme, themeString, teamsUserCredential }}>
       <FluentProvider
+        className="w-full h-full"
         theme={
           themeString === "dark"
             ? teamsDarkTheme
