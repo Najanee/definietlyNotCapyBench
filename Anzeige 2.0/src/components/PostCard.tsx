@@ -5,23 +5,15 @@ import { Topic } from "../domain/Topic";
 import { Subtopic } from "../domain/Subtopic";
 
 type Props = {
+    userId: number;
     post: Post
     isSubscribed: (resource: Topic | Subtopic | Post) => Boolean;
     subscribedPosts: Post[];
     setSubscribedPosts: (value: Post[]) => void;
+    toggleSubscribe: (resource: Topic | Subtopic | Post, resourceType: string) => void;
 }
 
-export function PostCard( { post, isSubscribed, subscribedPosts, setSubscribedPosts }: Props) {
-
-  const toggleSubscribe = (handledPost: Post) : void => {
-    if(isSubscribed(handledPost)) {
-      const dimnishedPosts = [...subscribedPosts];
-      dimnishedPosts.splice(subscribedPosts.findIndex(post => post.id === handledPost.id), 1)
-      setSubscribedPosts(dimnishedPosts);
-    } else {
-      setSubscribedPosts([...subscribedPosts, handledPost]);
-    }
-  } 
+export function PostCard( { userId, post, isSubscribed, subscribedPosts, setSubscribedPosts, toggleSubscribe }: Props) {
 
     return (
     <Card
@@ -68,7 +60,7 @@ export function PostCard( { post, isSubscribed, subscribedPosts, setSubscribedPo
         <div className="justify-self-end flex content-center justify-between w-1/5">
           <Button 
             icon={isSubscribed(post) ? <Star16Filled /> : <StarAdd16Regular />}
-            onClick={() => toggleSubscribe(post)}
+            onClick={() => toggleSubscribe(post, "post")}
           />
           <Button 
             icon={<Share16Regular />} 

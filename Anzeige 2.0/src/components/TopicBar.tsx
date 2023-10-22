@@ -4,6 +4,7 @@ import { TopicRow } from "./TopicRow";
 import { Search16Regular } from "@fluentui/react-icons";
 import { Post } from "../domain/Post";
 import { Subtopic } from "../domain/Subtopic";
+import { randomUUID } from "crypto";
 
 type Props = {
     topics: Topic[];
@@ -12,13 +13,15 @@ type Props = {
     setSubscribedTopics: (value:Topic[]) => void;
     subscribedSubtopics: Subtopic[];
     setSubscribedSubtopics: (value: Subtopic[]) => void;
+    toggleSubscribe: (resource: Topic | Subtopic | Post, resourceType: string) => void;
+
 }
 
-export function TopicBar({ topics, isSubscribed, subscribedTopics, setSubscribedTopics, subscribedSubtopics, setSubscribedSubtopics } : Props) {
+export function TopicBar({ topics, isSubscribed, subscribedTopics, setSubscribedTopics, subscribedSubtopics, setSubscribedSubtopics, toggleSubscribe } : Props) {
 
     return (
         <div className="w-300 px-10 sticky top-10 left-0">
-            <Input 
+            <Input
                 type="text"
                 placeholder="Search topics"
                 contentBefore={<Search16Regular/>}
@@ -29,13 +32,15 @@ export function TopicBar({ topics, isSubscribed, subscribedTopics, setSubscribed
                 topics.map(topic => 
                     <div className="flex flex-col items-start w-full">
                         {
-                            <TopicRow 
+                            <TopicRow
+                                key={topic.id} 
                                 topic={topic}
                                 isSubscribed={isSubscribed}
                                 subscribedSubtopics={subscribedSubtopics}
                                 subscribedTopics={subscribedTopics}
                                 setSubscribedSubtopics={setSubscribedSubtopics}
                                 setSubscribedTopics={setSubscribedTopics}
+                                toggleSubscribe={toggleSubscribe}
                             />
                         } 
                     </div>

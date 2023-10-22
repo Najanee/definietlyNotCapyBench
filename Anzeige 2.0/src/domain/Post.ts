@@ -12,6 +12,7 @@ export class Post {
     topic: Topic;
     subtopic: Subtopic | undefined;
     subscriberIds: number[];
+    type: string = "post";
 
     constructor(id: number, title: string, 
                 content: string, createDate: Date, 
@@ -27,6 +28,6 @@ export class Post {
         this.topic = topic;
         this.subtopic = subtopic;
         this.subscriberIds = subscriberIds;
-
+        this.type = "post";
     }
 }

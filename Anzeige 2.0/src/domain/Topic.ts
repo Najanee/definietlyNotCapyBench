@@ -7,6 +7,7 @@ export class Topic {
     postIds: number[];
     subscriberIds: number[];
     expirationDate: Date;
+    type: string = "topic";
 
     constructor(id: number, name: string, subtopics: Subtopic[], postIds: number[], subsciberIds: number[], expirationDate: Date) {
         this.id = id;

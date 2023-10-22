@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ChevronDown16Regular, ChevronRight16Regular } from "@fluentui/react-icons";
 import { Topic } from "../domain/Topic"
-import { Button } from "@fluentui/react-components";
+import { Button, Divider } from "@fluentui/react-components";
 import { Subtopic } from "../domain/Subtopic";
 import { Post } from "../domain/Post";
 
@@ -12,31 +12,11 @@ type Props = {
     setSubscribedTopics: (value:Topic[]) => void;
     subscribedSubtopics: Subtopic[];
     setSubscribedSubtopics: (value: Subtopic[]) => void;
-
+    toggleSubscribe: (resource: Topic | Subtopic | Post, resourceType: string) => void;
 }
 
-export function TopicRow( { topic, isSubscribed, subscribedTopics, setSubscribedTopics, subscribedSubtopics, setSubscribedSubtopics } : Props ) {
+export function TopicRow( { topic, isSubscribed, subscribedTopics, setSubscribedTopics, subscribedSubtopics, setSubscribedSubtopics, toggleSubscribe } : Props ) {
     const [isExpanded, setIsExpanded] = useState<Boolean>(false);
-
-    const toggleSubscribeTopic = (handledTopic: Topic) : void => {
-        if(isSubscribed(handledTopic)) {
-          const dimnishedTopics = [...subscribedTopics];
-          dimnishedTopics.splice(subscribedTopics.findIndex(topic => topic.id === handledTopic.id), 1)
-          setSubscribedTopics(dimnishedTopics);
-        } else {
-          setSubscribedTopics([...subscribedTopics, handledTopic]);
-        }
-      }
-
-      const toggleSubscribeSubtopic = (handledSubtopic: Subtopic) : void => {
-        if(isSubscribed(handledSubtopic)) {
-          const dimnishedSubtopics = [...subscribedSubtopics];
-          dimnishedSubtopics.splice(subscribedSubtopics.findIndex(subtopic => subtopic.id === handledSubtopic.id), 1)
-          setSubscribedSubtopics(dimnishedSubtopics);
-        } else {
-            setSubscribedSubtopics([...subscribedSubtopics, handledSubtopic]);
-        }
-      }
 
     const toggleIsExpanded = () => {
         setIsExpanded(prev => !prev)
@@ -58,27 +38,28 @@ export function TopicRow( { topic, isSubscribed, subscribedTopics, setSubscribed
                     className="mt-1"
                     appearance="transparent"
                     size="small"
-                    onClick={() => toggleSubscribeTopic(topic)}
+                    onClick={() => toggleSubscribe(topic, "topic")}
                 >
-                    { isSubscribed(topic) ? "Subscribe" : "Unsubscribe" } 
+                    { !isSubscribed(topic) ? "Subscribe" : "Unsubscribe" } 
                 </Button>
             }
             </div>
             
             {
                 isExpanded && topic.subtopics.map(subtopic => 
-                    <p className="px-4 py-1.5 text-ellipsis leading-5 w-full">
-                        {subtopic.name} | 
-                        {
+                    <div className="px-4 py-1.5 text-ellipsis leading-5 w-full">
+                        {subtopic.name}
+                        <div>
+                            <Divider vertical />
                             <Button
                                 size="small"
                                 appearance="transparent"
-                                onClick={() => toggleSubscribeSubtopic(subtopic)}
+                                onClick={() => toggleSubscribe(subtopic, "subtopic")}
                             >
-                                { isSubscribed(subtopic) ? "Subscribe" : "Unsubscribe" }
+                                { !isSubscribed(subtopic) ? "Subscribe" : "Unsubscribe" }
                             </Button>
-                        }
-                    </p>
+                        <div/>
+                    </div>
                 )
             }
         </>
