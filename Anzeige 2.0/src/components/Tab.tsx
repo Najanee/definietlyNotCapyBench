@@ -8,6 +8,7 @@ import { TopicBar } from "./TopicBar";
 import { Topic } from "../domain/Topic";
 import { Post } from "../domain/Post";
 import { Subtopic } from "../domain/Subtopic";
+import { resolvePath } from "react-router";
 
 export function Tab() {
   const { themeString } = useContext(TeamsFxContext);
@@ -15,12 +16,15 @@ export function Tab() {
   const USER_ID = 2;
 
   const [topics, setTopics] = useState<Topic[]>([]);
-  const [subscribedTopics, setSubscribedTopics] : [Topic[], (value: Topic[]) => void] = 
-    useState<Topic[]>([]);
-  const [subscribedPosts, setSubscribedPosts] : [Post[], (value: Post[]) => void] = 
-    useState<Post[]>([]);
-  const [subscribedSubtopics, setSubscribedSubtopics] : [Subtopic[], (value: Subtopic[]) => void] = 
-  useState<Subtopic[]>([]);
+
+  const [subscribedTopics, setSubscribedTopics] 
+    : [Topic[], (value: Topic[]) => void] = useState<Topic[]>([]);
+
+  const [subscribedPosts, setSubscribedPosts] 
+    : [Post[], (value: Post[]) => void] = useState<Post[]>([]);
+
+  const [subscribedSubtopics, setSubscribedSubtopics] 
+    : [Subtopic[], (value: Subtopic[]) => void] = useState<Subtopic[]>([]);
 
   const isSubscribed = (resource: Topic | Subtopic | Post) : Boolean => {
     return resource.subscriberIds?.includes(USER_ID);
@@ -28,8 +32,48 @@ export function Tab() {
 
   const toggleSubscribe = (resource: Topic | Subtopic | Post, resourceType: string) : void => {
     console.log(isSubscribed(resource));
-    isSubscribed(resource) ? unsubscribeFromResource(USER_ID, resource.id, resourceType) 
-      : subscribeToResource(USER_ID, resource.id, resourceType);
+
+    if (isSubscribed(resource)) {
+      let resourcePath: string;
+      switch (resourceType) {
+        case "post": {
+          resourcePath = "fromPost";
+          break;
+        }
+        case "subtopic": {
+          resourcePath = "fromSubtopic";
+          break;
+        }
+        case "topic": {
+          resourcePath = "fromTopic";
+          break;
+        }
+        default: {
+          resourcePath = "a nie wiem"
+        }
+      }
+      unsubscribeFromResource(USER_ID, resourcePath, resource.id, resourceType) 
+    } else {
+      let resourcePath: string;
+      switch (resourceType) {
+        case "post": {
+          resourcePath = "toPost";
+          break;
+        }
+        case "subtopic": {
+          resourcePath = "toSubtopic";
+          break;
+        }
+        case "topic": {
+          resourcePath = "toTopic";
+          break;
+        }
+        default: {
+          resourcePath = "a nie wiem też..."
+        }
+      }
+      subscribeToResource(USER_ID, resourcePath, resource.id, resourceType);
+    }
   } 
     
   useEffect(() => {

@@ -28,9 +28,9 @@ async function getPostsDtos(userId: number) : Promise<PostDto[]> {
   }
 }
 
-async function subscribeToResource(userId: number, resourceId: number, resourceType: string) {
+async function subscribeToResource(userId: number, resourcePath: string, resourceId: number, resourceType: string) {
   try {
-    const response = await requestMethod(userId, resourceId, resourceType, "POST");
+    const response = await requestMethod(userId, resourcePath, resourceId, resourceType, "GET");
     response.status === 200 ? console.log(`Subscribed to ${resourceType}Id: ${resourceId}`) 
       : console.log(`Subscribe for ${resourceType}Id:${resourceId} unsuccessful.`);
   } catch (error) {
@@ -41,9 +41,9 @@ async function subscribeToResource(userId: number, resourceId: number, resourceT
   }
 }
 
-async function unsubscribeFromResource(userId: number, resourceId: number, resourceType: string) {
+async function unsubscribeFromResource(userId: number, resourcePath: string, resourceId: number, resourceType: string) {
   try {
-    const response = await requestMethod(userId, resourceId, resourceType, "DELETE");
+    const response = await requestMethod(userId, resourcePath, resourceId, resourceType, "GET");
     response.status === 200 ? console.log(`Unsubscribed to ${resourceType}Id: ${resourceId}`) 
       : console.log(`Unsubscribe for ${resourceType}Id:${resourceId} unsuccessful. Status: ${response.status}`);
   } catch (error) {
@@ -53,8 +53,8 @@ async function unsubscribeFromResource(userId: number, resourceId: number, resou
   }
 }
 
-const requestMethod = (userId: number, resourceId: number, resourceType: string, methodType: string)  => {
-  return fetch(`http://localhost:8080/subscription/${userId}?${resourceType}Id=${resourceId}`, {
+const requestMethod = (userId: number, resourcePath: string, resourceId: number, resourceType: string, methodType: string)  => {
+  return fetch(`http://localhost:8080/subscription/${resourcePath}/${userId}?${resourceType}Id=${resourceId}`, {
     method: methodType,
     headers: {
       "Access-Control-Allow-Origin": "*"
